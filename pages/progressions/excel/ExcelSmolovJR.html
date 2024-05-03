@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Noé Medina">
+    <meta name="description" content="Ginasio basicamente">
+    <link rel="stylesheet" href="../../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../css/estilos.css">
+    <link rel="icon" type="png" href="imagenes/fasvicon.png">
+    <title>GYM</title>
+</head>
+<body>
+    <header>
+        <nav class="menu">
+            <img src="../../../imagenes/PRfitR.png" class="logo" alt="">
+            <ul>
+                <li><a href="../../index.html" class="brillo">INICIO</a></li>
+                <li><a href="Progresiones.html">Progresiones</a>
+                <ul>
+                    <li><a href="PBilbo.html">Bilbo</a></li>
+                    <li><a href="PSideropolis.html">Sideropolis</a></li>
+                    <li><a href="P5basico.html">5x5 básico</a></li>
+                    <li><a href="PSmolovJR.html">SmolovJR</a></li>
+                </ul></li>
+                <li><a href="#">Ranking TOP</a>
+                    <ul>
+                        <li><a href="TCulturistas.html">Culturistas</a></li>
+                        <li><a href="TPowerlifters.html">Powerlifters</a></li>
+                    </ul></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+      <div class="formulario">
+        <h2>CALCULAR RUTINA SMOLOV JR</h2>
+        <br>
+        <label for="maxRep">Repetición máxima (kg)</label>
+        <input type="number" id="maxRep" step="0.01"><br><br>
+        <label for="increment">Incremento (kg)</label>
+        <input type="number" id="increment" step="0.01"><br><br>
+    
+        <button onclick="calculateRoutine()">Calcular Rutina</button><br><br>
+      </div>
+
+    <div class="main2">
+      <section>
+        <div id="rutina"></div>
+      </section>
+      <!-- Secciones restantes omitidas por brevedad -->
+    </div>
+  </main>
+
+    <footer>
+
+    </footer>
+    
+    <script>
+        function calculateRoutine() {
+            var maxRep = parseFloat(document.getElementById("maxRep").value);
+            var increment = parseFloat(document.getElementById("increment").value);
+
+            var weeks = ["SEMANA 1", "SEMANA 2", "SEMANA 3"];
+            var days = ["Lunes", "Miércoles", "Viernes", "Sábado"];
+
+            var rutinaHTML = "<h3>RUTINA SMOLOV JR</h3>";
+
+            for (var i = 0; i < weeks.length; i++) {
+                rutinaHTML += "<br><h4>" + weeks[i] + "</h4>";
+                rutinaHTML += "<table border='1'>";
+                rutinaHTML += "<tr><th>DÍA</th><th>SERIES</th><th>REPETICIONES</th><th>PESO</th></tr>";
+                for (var j = 0; j < days.length; j++) {
+                    var series = [6, 7, 8, 10];
+                    var repeticiones = [6, 5, 4, 3];
+                    var peso = maxRep - (increment * (i * 4 + j));
+                    rutinaHTML += "<tr>";
+                    rutinaHTML += "<td>" + days[j] + "</td>";
+                    rutinaHTML += "<td>" + series[j] + "</td>";
+                    rutinaHTML += "<td>" + repeticiones[j] + "</td>";
+                    rutinaHTML += "<td>" + peso.toFixed(1) + "</td>";
+                    rutinaHTML += "</tr>";
+                }
+                rutinaHTML += "</table>";
+            }
+
+            document.getElementById("rutina").innerHTML = rutinaHTML;
+        }
+    </script>
+      
+    
+</body>
+</html><!---->

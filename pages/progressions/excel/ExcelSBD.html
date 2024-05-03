@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Noé Medina">
+    <meta name="description" content="Ginasio basicamente">
+    <link rel="stylesheet" href="../../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../css/estilos.css">
+    <link rel="icon" type="png" href="imagenes/fasvicon.png">
+    <title>GYM</title>
+</head>
+<body>
+    <header>
+        <!-- Encabezado de tu página -->
+    </header>
+
+    <main>
+        <div class="formulario">
+            <h2>PLANIFICACIÓN DE ENTRENAMIENTO</h2>
+            <form id="formulario" onsubmit="return false;">
+                <label for="pesoSentadilla">Peso de Sentadilla (kg):</label>
+                <input type="number" id="pesoSentadilla" step="any" required><br><br>
+
+                <label for="pesoBanca">Peso de Banca (kg):</label>
+                <input type="number" id="pesoBanca" step="any" required><br><br>
+
+                <label for="pesoMuerto">Peso de Peso Muerto (kg):</label>
+                <input type="number" id="pesoMuerto" step="any" required><br><br>
+
+                <button onclick="calculateTraining()">Calcular Rutina</button>
+            </form>
+        </div>
+
+        <div class="rutina">
+            <h3>RUTINA DE ENTRENAMIENTO</h3>
+            <div id="resultados"></div>
+        </div>
+    </main>
+
+    <footer>
+        <!-- Pie de página -->
+    </footer>
+
+    <script>
+        function calculateTraining() {
+            var pesoSentadilla = parseFloat(document.getElementById("pesoSentadilla").value);
+            var pesoBanca = parseFloat(document.getElementById("pesoBanca").value);
+            var pesoMuerto = parseFloat(document.getElementById("pesoMuerto").value);
+
+            var semanas = ["Semana 1", "Semana 2", "Semana 3", "Semana 4", "Semana 5", "Semana 6"];
+            var porcentajes = [0.755, 0.81, 0.875, 0.91, 0.7, "Toma M Max"];
+            var repeticiones = [["5x5", "-", 5, 5, 5], ["4x4", "-", 4, 4, 4], ["3x3", "-", 3, 3, 3], ["2x2", "-", 2, 2, 2], ["3x4", "-", 3, 4, 4], ["-", "-", "-", "-", "-"]];
+
+            var resultadosHTML = "";
+
+            for (var i = 0; i < semanas.length; i++) {
+                resultadosHTML += "<h4>" + semanas[i] + "</h4>";
+                resultadosHTML += "<table border='1'>";
+                resultadosHTML += "<tr><th>Ejercicio</th><th>Repeticiones</th><th>Series</th><th>Peso (kg)</th></tr>";
+
+                resultadosHTML += "<tr><td>Sentadilla</td><td>" + repeticiones[i][0] + "</td><td>" + repeticiones[i][1] + "</td><td>" + (pesoSentadilla * porcentajes[i]).toFixed(2) + "</td></tr>";
+                resultadosHTML += "<tr><td>Banca</td><td>" + repeticiones[i][0] + "</td><td>" + repeticiones[i][1] + "</td><td>" + (pesoBanca * porcentajes[i]).toFixed(2) + "</td></tr>";
+                resultadosHTML += "<tr><td>Peso Muerto</td><td>" + repeticiones[i][0] + "</td><td>" + repeticiones[i][1] + "</td><td>" + (pesoMuerto * porcentajes[i]).toFixed(2) + "</td></tr>";
+
+                resultadosHTML += "</table>";
+            }
+
+            document.getElementById("resultados").innerHTML = resultadosHTML;
+        }
+    </script>
+</body>
+</html>

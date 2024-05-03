@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Noé Medina">
+    <meta name="description" content="Ginasio basicamente">
+    <link rel="stylesheet" href="../../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../css/estilos.css">
+    <link rel="icon" type="png" href="../../../imagenes/">
+    <title>GYM</title>
+</head>
+<body>
+    <header>
+        <nav class="menu">
+            <img src="../../../imagenes/PRfitR.png" class="logo" alt="">
+            <ul>
+                <li><a href="index.html" class="brillo">INICIO</a></li>
+                <li><a href="Progresiones.html">Progresiones</a>
+                <ul>
+                    <li><a href="PBilbo.html">Bilbo</a></li>
+                    <li><a href="PSideropolis.html">Sideropolis</a></li>
+                    <li><a href="P5basico.html">5x5 básico</a></li>
+                    <li><a href="PSmolovJR.html">SmolovJR</a></li>
+                </ul></li>
+                <li><a href="#">Ranking TOP</a>
+                    <ul>
+                        <li><a href="TCulturistas.html">Culturistas</a></li>
+                        <li><a href="TPowerlifters.html">Powerlifters</a></li>
+                    </ul></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+      <div class="formulario">
+        <form id="calcForm">
+          <label for="startingWeight">1RM INICIO:</label>
+          <input type="number" id="startingWeight" name="startingWeight" step="0.01" required><br>
+        
+          <label for="increment">INCREMENTO:</label>
+          <input type="number" id="increment" name="increment" step="0.01" required><br>
+        
+          <input type="button" value="Calcular" onclick="calculate1RM()">
+        </form>
+      </div>
+
+    <div class="main2">
+      <section>
+          <table id="calcTable1">
+              <thead>
+                  <tr>
+                      <th>CICLO</th>
+                      <th>Fecha</th>
+                      <th>Día</th>
+                      <th>PESO</th>
+                      <th>Repeticiones</th>
+                      <th>1RM</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <!-- Aquí se insertarán las filas de la tabla mediante JavaScript -->
+              </tbody>
+          </table>
+      </section>
+      <section>
+        <table id="calcTable2">
+            <thead>
+              <tr>
+                <th>CICLO</th>
+                <th>Fecha</th>
+                <th>Día</th>
+                <th>PESO</th>
+                <th>Repeticiones</th>
+                <th>1RM</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Aquí se insertarán las filas de la tabla mediante JavaScript -->
+            </tbody>
+        </table>
+    </section>
+    <section>
+        <table id="calcTable3">
+            <thead>
+              <tr>
+                <th>CICLO</th>
+                <th>Fecha</th>
+                <th>Día</th>
+                <th>PESO</th>
+                <th>Repeticiones</th>
+                <th>1RM</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Aquí se insertarán las filas de la tabla mediante JavaScript -->
+            </tbody>
+        </table>
+    </section>
+    <section>
+        <table id="calcTable4">
+            <thead>
+              <tr>
+                <th>CICLO</th>
+                <th>Fecha</th>
+                <th>Día</th>
+                <th>PESO</th>
+                <th>Repeticiones</th>
+                <th>1RM</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Aquí se insertarán las filas de la tabla mediante JavaScript -->
+            </tbody>
+        </table>
+    </section>
+      <!-- Secciones restantes omitidas por brevedad -->
+    </div>
+  </main>
+
+    <footer>
+
+    </footer>
+    
+    <script>
+      function calculate1RM() {
+        var startingWeight = parseFloat(document.getElementById("startingWeight").value);
+        var increment = parseFloat(document.getElementById("increment").value);
+    
+        for (var cycle = 1; cycle <= 4; cycle++) {
+          var currentWeight = startingWeight * 0.5; // Inicia en el 50% del 1RM
+          var tableBody = document.querySelector("#calcTable" + cycle + " tbody");
+          tableBody.innerHTML = ""; // Limpiar tabla antes de recalcular
+          
+          for (var day = 1; day <= 17; day++) {
+            var newRow = tableBody.insertRow();
+            var cellCycle = newRow.insertCell(0);
+            var cellDate = newRow.insertCell(1);
+            var cellDay = newRow.insertCell(2);
+            var cellWeight = newRow.insertCell(3);
+            var cellReps = newRow.insertCell(4);
+            var cell1RM = newRow.insertCell(5);
+    
+            cellCycle.innerHTML = cycle;
+            cellDate.innerHTML = '<input type="text" id="cycle' + cycle + '_reps_' + day + '" name="cycle' + cycle + '_reps_' + day + '" step="1">';
+            cellDay.innerHTML = day;
+            cellWeight.innerHTML = currentWeight.toFixed(1);
+            cellReps.innerHTML = '<input type="number" id="cycle' + cycle + '_reps_' + day + '" name="cycle' + cycle + '_reps_' + day + '" step="1" style="width: 50px;">';// Input para ingresar el número de repeticiones
+            cell1RM.innerHTML = Math.round(currentWeight + (cellReps / 30));
+    
+            currentWeight += increment;
+          }
+        }
+      }
+    </script>
+      
+    
+</body>
+</html><!---->
