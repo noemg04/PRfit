@@ -7,13 +7,13 @@
     <meta name="description" content="Ginasio basicamente">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" type="text/css" href="../css/estilos.css">
-    <link rel="icon" type="png" href="../../imagenes/fasvicon.png">
+    <link rel="icon" type="png" href="imagenes/fasvicon.png">
     <title>GYM</title>
 </head>
 <body>
     <header>
         <nav class="menu">
-            <img src="../../imagenes/PRfitR.png" class="logo" alt="">
+            <img src="/PRfitR.png" class="logo" alt="">
             <ul>
                 <li><a href="../index.html" class="brillo">INICIO</a></li>
                 <li><a href="Progresiones.html">Progresiones</a>
@@ -34,7 +34,7 @@
     </header>
 
     <main>
-      <div class="formulario">
+      <div class="formulario TCulturistas">
         <h2>TOP CULTURISTAS</h2>
         <br>
         <label for="opciones">Selecciona un Mr. Olympia:</label>
@@ -98,7 +98,6 @@
           <option value="2021">2021</option>
           <option value="2022">2022</option>
           <option value="2023">2023</option>
-          <option value="2024">2024</option>
         </select>
     <br><br>
     <button onclick="mostrarTopCulturistas()">Mostrar TOP</button><br><br>
@@ -117,17 +116,26 @@
     </footer>
 
     <script>
-        function mostrarTopCulturistas() {
-          var añoSeleccionado = document.getElementById("opciones").value;
-          var xhttp = new XMLHttpRequest();
-          xhttp.onreadystatechange = function() {
-              if (this.readyState == 4 && this.status == 200) {
-                  document.getElementById("topCulturistas").innerHTML = this.responseText;
-              }
-          };
-          xhttp.open("GET", "obtener_top_culturistas.php?año=" + añoSeleccionado, true);
-          xhttp.send();
+function mostrarTopCulturistas() {
+    var añoSeleccionado = document.getElementById("opciones").value;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var topCulturistasDiv = document.getElementById("topCulturistas");
+            if (topCulturistasDiv) {
+                topCulturistasDiv.innerHTML = ""; // Limpiar el contenido existente
+                topCulturistasDiv.innerHTML = this.responseText; // Insertar el nuevo contenido
+            } else {
+                console.error('Elemento para mostrar los resultados no encontrado');
+            }
+        } else if (this.readyState == 4) {
+            console.error('Error al cargar los datos:', this.statusText);
         }
+    };
+    xhttp.open("GET", "http://localhost:3000/obtener_top_culturistas?año=" + añoSeleccionado, true);
+    xhttp.send();
+}
+
       </script>
     
 </body>
