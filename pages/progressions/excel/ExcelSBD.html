@@ -8,11 +8,31 @@
     <link rel="stylesheet" href="../../css/reset.css">
     <link rel="stylesheet" type="text/css" href="../../css/estilos.css">
     <link rel="icon" type="png" href="imagenes/fasvicon.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>GYM</title>
 </head>
 <body>
     <header>
-        <!-- Encabezado de tu página -->
+        <nav class="menu">
+            <img src="/PRfitR.png" class="logo" alt="">
+            <ul>
+                <li><a href="../../index.html" class="brillo">INICIO</a></li>
+                <li><a href="Progresiones.html">Progresiones</a>
+                <ul>
+                    <li><a href="PBilbo.html">Bilbo</a></li>
+                    <li><a href="PSideropolis.html">Sideropolis</a></li>
+                    <li><a href="P5basico.html">5x5 básico</a></li>
+                    <li><a href="PSmolovJR.html">SmolovJR</a></li>
+                </ul></li>
+                <li><a href="#">Ranking TOP</a>
+                    <ul>
+                        <li><a href="TCulturistas.html">Culturistas</a></li>
+                        <li><a href="TPowerlifters.html">Powerlifters</a></li>
+                    </ul></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li id="registerMenu"><a href="../../register.html"><img src="/user.png" alt=""></a></li>
+            </ul>
+        </nav>
     </header>
 
     <main>
@@ -33,7 +53,6 @@
         </div>
 
         <div class="rutina">
-            <h3>RUTINA DE ENTRENAMIENTO</h3>
             <div id="resultados"></div>
         </div>
     </main>
@@ -43,29 +62,60 @@
     </footer>
 
     <script>
+        var isLoggedIn = localStorage.getItem('isLoggedIn');
+        document.addEventListener('DOMContentLoaded', function() {
+        // Obtener el estado de la sesión del almacenamiento local
+            var isLoggedIn = localStorage.getItem('isLoggedIn');
+                console.log('isLoggedIn:', isLoggedIn);
+
+                if (isLoggedIn) {
+                    var lastMenuItem = $('#registerMenu');
+                    var lastMenuItemLink = lastMenuItem.find('a');
+                    var lastMenuItemImg = lastMenuItem.find('img');
+
+                    if (lastMenuItemLink.length > 0) {
+                        lastMenuItemLink.attr('href', '/perfil.html');
+                    }
+
+                    if (lastMenuItemImg.length > 0) {
+                        lastMenuItemImg.attr('src', '/userlogged.png');
+                    }
+                }
+        });
+
+
+
         function calculateTraining() {
             var pesoSentadilla = parseFloat(document.getElementById("pesoSentadilla").value);
             var pesoBanca = parseFloat(document.getElementById("pesoBanca").value);
             var pesoMuerto = parseFloat(document.getElementById("pesoMuerto").value);
 
-            var semanas = ["Semana 1", "Semana 2", "Semana 3", "Semana 4", "Semana 5", "Semana 6"];
+            var semanas = ["Semana 1", "Semana 2", "Semana 3", "Semana 4", "Semana 5"];
             var porcentajes = [0.755, 0.81, 0.875, 0.91, 0.7, "Toma M Max"];
-            var repeticiones = [["5x5", "-", 5, 5, 5], ["4x4", "-", 4, 4, 4], ["3x3", "-", 3, 3, 3], ["2x2", "-", 2, 2, 2], ["3x4", "-", 3, 4, 4], ["-", "-", "-", "-", "-"]];
+            var repeticiones = [["5x5", 5, 5], ["4x4", 4, 4], ["3x3", 3, 3], ["2x2", 2, 2], ["3x4", 3, 4], ["-", "-", "-"]];
 
-            var resultadosHTML = "";
+            var resultadosHTML = "<h2>PLANIFICACIÓN 6 SEMANAS</h2>";
+            resultadosHTML += "<table border='1'>";
+            resultadosHTML += "<tr><th>Semana</th><th>Porcentaje</th><th>Repeticiones</th><th colspan='3'>Ejercicios</th></tr>";
+            resultadosHTML += "<tr><th></th><th></th><th></th><th>Sentadilla</th><th>Banca</th><th>Peso Muerto</th></tr>";
 
             for (var i = 0; i < semanas.length; i++) {
-                resultadosHTML += "<h4>" + semanas[i] + "</h4>";
-                resultadosHTML += "<table border='1'>";
-                resultadosHTML += "<tr><th>Ejercicio</th><th>Repeticiones</th><th>Series</th><th>Peso (kg)</th></tr>";
+                resultadosHTML += "<tr><td>" + semanas[i] + "</td>";
+                resultadosHTML += "<td>" + (typeof porcentajes[i] === "number" ? (porcentajes[i] * 100).toFixed(2) + "%" : porcentajes[i])   + "</td>";
+                resultadosHTML += "<td>" + repeticiones[i][0] + "</td>";
+                resultadosHTML += "<td>" + (pesoSentadilla * (typeof porcentajes[i] === "number" ? porcentajes[i] : 1)).toFixed(2) + "</td>";
+                resultadosHTML += "<td>" + (pesoBanca * (typeof porcentajes[i] === "number" ? porcentajes[i] : 1)).toFixed(2) + "</td>";
+                resultadosHTML += "<td>" + (pesoMuerto * (typeof porcentajes[i] === "number" ? porcentajes[i] : 1)).toFixed(2) + "</td>";
+            }
+            resultadosHTML += "<tr><td> Semana 6 </td><td colspan='5'>TOMA DE MARCAS</td></tr>";
 
-                resultadosHTML += "<tr><td>Sentadilla</td><td>" + repeticiones[i][0] + "</td><td>" + repeticiones[i][1] + "</td><td>" + (pesoSentadilla * porcentajes[i]).toFixed(2) + "</td></tr>";
-                resultadosHTML += "<tr><td>Banca</td><td>" + repeticiones[i][0] + "</td><td>" + repeticiones[i][1] + "</td><td>" + (pesoBanca * porcentajes[i]).toFixed(2) + "</td></tr>";
-                resultadosHTML += "<tr><td>Peso Muerto</td><td>" + repeticiones[i][0] + "</td><td>" + repeticiones[i][1] + "</td><td>" + (pesoMuerto * porcentajes[i]).toFixed(2) + "</td></tr>";
+            if (isLoggedIn) {//Si esta logueado, introduce una nueva fila con un boton, si no ->
 
+                    resultadosHTML += "<tr><td colspan='6'> <button onclick='calculateTraining()'>Guardar</button> </td></tr>";
+
+            }else{//Cierra la tabla
                 resultadosHTML += "</table>";
             }
-
             document.getElementById("resultados").innerHTML = resultadosHTML;
         }
     </script>

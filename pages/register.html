@@ -20,8 +20,6 @@
                 <li><a href="index.html" class="brillo">INICIO</a></li>
                 <li><a href="Progresiones.html">Progresiones</a>
                 <ul>
-                    <li><a href="progressions/PBilbo.html">Bilbo</a></li>
-                    <li><a href="progressions/PSideropolis.html">Sideropolis</a></li>
                     <li><a href="progressions/P5basico.html">5x5 básico</a></li>
                     <li><a href="progressions/PSmolovJR.html">SmolovJR</a></li>
                 </ul></li>
@@ -32,6 +30,7 @@
                     </ul></li>
                 <li><a href="calorias.html">Calorias</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
+                <li id="registerMenu"><a href="register.html"><img src="/user.png" alt=""></a></li>
             </ul>
         </nav>
     </header>
@@ -39,7 +38,7 @@
     <main>
         <div class="main">
         <section class="form" id="registerForm">
-            <form action="/register" method="POST">
+            <form action="/register" method="POST" id="userForm">
                 <div class="title">Bienvenido a <span class="highlight">PR</span>FIT</div>
                 <div class="subtitle">Vamos a crear tu cuenta!</div>
           
@@ -50,7 +49,7 @@
                 </div>
           
                 <div class="input-container ic2" id="emailContainer">
-                  <input placeholder="" type="email" class="input" id="email" name="email" required>
+                  <input placeholder="" type="email" class="input" id="email" name="email" >
                   <div class="cut cut-short"></div>
                   <label class="iLabel" for="email">Email</label>
                 </div>
@@ -75,6 +74,30 @@
 
     <script>
         $(document).ready(function() {
+
+            function handleLoginSuccess() {
+                // Puedes dejar esta función vacía por ahora
+                // o agregar la lógica que desees ejecutar después de que el usuario inicie sesión correctamente
+            }
+            var isLoggedIn = localStorage.getItem('isLoggedIn');
+            console.log('isLoggedIn:', isLoggedIn);
+
+            if (isLoggedIn) {
+                var lastMenuItem = $('#registerMenu');
+                var lastMenuItemLink = lastMenuItem.find('a');
+                var lastMenuItemImg = lastMenuItem.find('img');
+
+                if (lastMenuItemLink.length > 0) {
+                    lastMenuItemLink.attr('href', '/perfil.html');
+                }
+
+                if (lastMenuItemImg.length > 0) {
+                    lastMenuItemImg.attr('src', '/userlogged.png');
+                }
+            }
+
+
+
             var isRegistering = true; // Flag para controlar el tipo de formulario
             $('#toggleForm').on('click', function() {
                 if (isRegistering) {
@@ -102,7 +125,11 @@
                     url: $(this).attr('action'),
                     data: formData,
                     success: function(response) {
-                        $('#resultMessage').html('<p>Acción completada con éxito</p>');
+                        // $('#resultMessage').html('<p>Acción completada con éxito</p>');
+                        handleLoginSuccess();
+                        localStorage.setItem('isLoggedIn', true);
+                         $('#resultMessage').html('<p>Acción completada con éxito</p>');
+
                     },
                     error: function(error) {
                         $('#resultMessage').html('<p>Error al procesar la acción</p>');
@@ -110,6 +137,9 @@
                 });
             });
         });
+
+
+       
     </script>
     
 </body>

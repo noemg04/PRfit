@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" type="text/css" href="../css/estilos.css">
     <link rel="icon" type="png" href="/favicoon.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>GYM</title>
 </head>
 <body>
@@ -29,6 +30,7 @@
                         <li><a href="../ranking/TPowerlifters.html">Powerlifters</a></li>
                     </ul></li>
                 <li><a href="contacto.html">Contacto</a></li>
+                <li id="registerMenu"><a href="register.html"><img src="/user.png" alt=""></a></li>
             </ul>
         </nav>
     </header>
@@ -41,7 +43,7 @@
             <p>Número de repeticiones y series: Iniciarás con 5 series de 5 repeticiones (5x5) en cada ejercicio en la primera semana. A medida que avances, reducirás el número de repeticiones por serie, manteniendo la intensidad alta.            </p>
             <p>En la página siguiente, encontrarás una herramienta para calcular tu progreso y mantener un registro de tus pesos, lo que te permitirá visualizar tu avance cada vez inicies sesión.</p>
             <br><br>
-            <a href="ExcelSmolovJR.html"><button class="botonprogresion">VAMOS</button></a>
+            <a href="excel/ExcelSBD.html"><button class="botonprogresion">VAMOS</button></a>
             
         </section>
         <section class="foto"><img src="/smolov.jpg" alt=""></section>
@@ -51,6 +53,28 @@
     <footer>
 
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        // Obtener el estado de la sesión del almacenamiento local
+            var isLoggedIn = localStorage.getItem('isLoggedIn');
+                console.log('isLoggedIn:', isLoggedIn);
+
+                if (isLoggedIn) {
+                    var lastMenuItem = $('#registerMenu');
+                    var lastMenuItemLink = lastMenuItem.find('a');
+                    var lastMenuItemImg = lastMenuItem.find('img');
+
+                    if (lastMenuItemLink.length > 0) {
+                        lastMenuItemLink.attr('href', '/perfil.html');
+                    }
+
+                    if (lastMenuItemImg.length > 0) {
+                        lastMenuItemImg.attr('src', '/userlogged.png');
+                    }
+                }
+        });
+    </script>
     
 </body>
 </html><!---->

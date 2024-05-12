@@ -37,17 +37,13 @@
 
     <main>
         <div class="main">
-            <div id="loader"><img src="/cargando.gif" alt=""></div>
-
         <section>
-            <p>¡Bienvenido a PRFIT ! Tu destino para alcanzar nuevas alturas en el fitness.</p><!--texto descriptivo-->
-            <p>Encontrarás entrenamientos progresivos, consejos de nutrición y información relacionada con el gimnasio, aquí encontrarás todo lo que necesitas para evolucionar hacia tu mejor versión.</p>
-            <p>Únete a nuestra comunidad y haz de cada día un paso más cerca de tus objetivos de transformación física</p>
+            <p>AREA PERSONAL.</p><!--texto descriptivo-->
             
             <br>
-            
+            <button id="logoutButton">Desloguearse</button>
         </section>
-        <section><img src="/inicio.jpg" alt=""></section>
+        <section></section>
     </div>
 
     </main>
@@ -58,29 +54,35 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                var loader = document.getElementById('loader');
-                loader.style.display = 'none';
-            }, 1000);
-            
         // Obtener el estado de la sesión del almacenamiento local
-            var isLoggedIn = localStorage.getItem('isLoggedIn');
-                console.log('isLoggedIn:', isLoggedIn);
+        var isLoggedIn = localStorage.getItem('isLoggedIn');
+            console.log('isLoggedIn:', isLoggedIn);
 
-                if (isLoggedIn) {
-                    var lastMenuItem = $('#registerMenu');
-                    var lastMenuItemLink = lastMenuItem.find('a');
-                    var lastMenuItemImg = lastMenuItem.find('img');
+            if (isLoggedIn) {
+                var lastMenuItem = $('#registerMenu');
+                var lastMenuItemLink = lastMenuItem.find('a');
+                var lastMenuItemImg = lastMenuItem.find('img');
 
-                    if (lastMenuItemLink.length > 0) {
-                        lastMenuItemLink.attr('href', '/perfil.html');
-                    }
-
-                    if (lastMenuItemImg.length > 0) {
-                        lastMenuItemImg.attr('src', '/userlogged.png');
-                    }
+                if (lastMenuItemLink.length > 0) {
+                    lastMenuItemLink.attr('href', '/perfil.html');
                 }
-        });
+
+                if (lastMenuItemImg.length > 0) {
+                    lastMenuItemImg.attr('src', '/userlogged.png');
+                }
+            }
+    });
+
+    $(document).ready(function() {
+    // Manejador de eventos para el botón de deslogueo
+    $('#logoutButton').on('click', function() {
+        // Elimina la clave 'isLoggedIn' del almacenamiento local
+        localStorage.removeItem('isLoggedIn');
+        // Redirige al usuario a la página de inicio de sesión
+        window.location.href = '/register.html'; // Cambia 'login.html' por la ruta de tu página de inicio de sesión
+    });
+});
+
     </script>
     
 </body>
