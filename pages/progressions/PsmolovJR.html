@@ -7,19 +7,18 @@
     <meta name="description" content="Ginasio basicamente">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" type="text/css" href="../css/estilos.css">
-    <link rel="icon" type="png" href="imagenes/fasvicon.png">
+    <link rel="icon" type="png" href="/favicoon.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>GYM</title>
 </head>
 <body>
     <header>
         <nav class="menu">
-            <img src="../../imagenes/PRfitR.png" class="logo" alt="">
+            <img src="/PRfitR.png" class="logo" alt="">
             <ul>
                 <li><a href="../index.html" class="brillo">INICIO</a></li>
                 <li><a href="../Progresiones.html">Progresiones</a>
                 <ul>
-                    <li><a href="PBilbo.html">Bilbo</a></li>
-                    <li><a href="PSideropolis.html">Sideropolis</a></li>
                     <li><a href="P5basico.html">5x5 básico</a></li>
                     <li><a href="PSmolovJR.html">SmolovJR</a></li>
                 </ul></li>
@@ -27,8 +26,11 @@
                     <ul>
                         <li><a href="../ranking/TCulturistas.html">Culturistas</a></li>
                         <li><a href="../ranking/TPowerlifters.html">Powerlifters</a></li>
-                    </ul></li>
-                <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </li>
+                <li><a href="../calorias.html">Calorias</a></li>
+                <li><a href="../contacto.html">Contacto</a></li>
+                <li id="registerMenu"><a href="../register.html"><img src="/user.png" alt=""></a></li>
             </ul>
         </nav>
     </header>
@@ -51,6 +53,28 @@
     <footer>
 
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        // Obtener el estado de la sesión del almacenamiento local
+            var isLoggedIn = localStorage.getItem('isLoggedIn');
+                console.log('isLoggedIn:', isLoggedIn);
+
+                if (isLoggedIn) {
+                    var lastMenuItem = $('#registerMenu');
+                    var lastMenuItemLink = lastMenuItem.find('a');
+                    var lastMenuItemImg = lastMenuItem.find('img');
+
+                    if (lastMenuItemLink.length > 0) {
+                        lastMenuItemLink.attr('href', '/perfil.html');
+                    }
+
+                    if (lastMenuItemImg.length > 0) {
+                        lastMenuItemImg.attr('src', '/userlogged.png');
+                    }
+                }
+        });
+    </script>
     
 </body>
 </html><!---->

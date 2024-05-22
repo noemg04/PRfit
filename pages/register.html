@@ -40,7 +40,7 @@
         <section class="form" id="registerForm">
             <form action="/register" method="POST" id="userForm">
                 <div class="title">Bienvenido a <span class="highlight">PR</span>FIT</div>
-                <div class="subtitle">Vamos a crear tu cuenta!</div>
+                <div class="subtitle">¡Vamos a crear tu cuenta!</div>
           
                 <div class="input-container ic1">
                   <input placeholder="" type="text" class="input" id="username" name="username" required>
@@ -62,6 +62,7 @@
                 <button type="button" id="toggleForm">Iniciar sesión</button>
                 <div id="resultMessage"></div>
             </form>
+            
             
         </section>
     </div>
@@ -105,7 +106,7 @@
                     $('#emailContainer').hide();
                     $('#userForm').attr('action', '/login');
                     $(this).text('Registrarse');
-                    $('.subtitle').text('¡Inicia sesión en tu cuenta!');
+                    $('.subtitle').html('¡Inicia sesión en tu cuenta! <br><br><br><br> Ahora podrás guardar tus progresiones y tus calorias para mostrarlas al pinchar en tu perfil');
                 } else {
                     // Cambiar a formulario de registro
                     $('#emailContainer').show();

@@ -37,13 +37,23 @@
 
     <main>
         <div class="main">
-        <section>
-            <p>AREA PERSONAL.</p><!--texto descriptivo-->
-            
+            <div class="rutina dieta">
+                <br>
+                <div id="resultados"></div>
+            </div>
+
+            <div class="rutina">
+                <br>
+                <div id="resultadoSBD"></div>
+            </div>
+
+            <div class="rutina">
+                <br>
+                <div id="resultados"></div>
+            </div>
+
             <br>
             <button id="logoutButton">Desloguearse</button>
-        </section>
-        <section></section>
     </div>
 
     </main>
@@ -70,18 +80,85 @@
                 if (lastMenuItemImg.length > 0) {
                     lastMenuItemImg.attr('src', '/userlogged.png');
                 }
-            }
-    });
+                $.get('/mostrar_calorias', function(data, status) {
+        // Verificar si la solicitud fue exitosa
+                    if (status === 'success') {
+                        // Mostrar los datos de calorías en el contenedor correspondiente
+                        mostrarDatosCalorias(data);
+                    } else {
+                        // Manejar el caso de error si la solicitud no fue exitosa
+                        console.error('Error al obtener los datos de calorías');
+                    }
+                });
 
-    $(document).ready(function() {
-    // Manejador de eventos para el botón de deslogueo
-    $('#logoutButton').on('click', function() {
-        // Elimina la clave 'isLoggedIn' del almacenamiento local
-        localStorage.removeItem('isLoggedIn');
-        // Redirige al usuario a la página de inicio de sesión
-        window.location.href = '/register.html'; // Cambia 'login.html' por la ruta de tu página de inicio de sesión
-    });
-});
+                $.get('/mostrar_sbd', function(data, status) {
+        // Verificar si la solicitud fue exitosa
+                    if (status === 'success') {
+                        // Mostrar los datos de calorías en el contenedor correspondiente
+                        mostrarSBD(data);
+                    } else {
+                        // Manejar el caso de error si la solicitud no fue exitosa
+                        console.error('Error al obtener los datos de SBD');
+                    }
+                });
+                
+            }else{
+
+            }
+        });
+
+        $(document).ready(function() {
+                // Manejador de eventos para el botón de deslogueo
+            $('#logoutButton').on('click', function() {
+                localStorage.removeItem('isLoggedIn');
+                // Redirige al usuario a la página de logout
+                window.location.href = '/logout';
+            });
+
+
+        });
+
+        function mostrarDatosCalorias(data) {
+        // Obtener el contenedor donde se mostrarán los datos de calorías
+            var resultados = $('#resultados');
+
+            // Construir el HTML para mostrar los datos
+            var html = "<h2>Dieta</h2>";
+            html += "<table border='1'>";
+            html += "<tr><th>Calorias</th><th>Proteinas</th><th>Grasas</th></tr>";
+            html += "<tr><td>"+ data.calorias +"</td><td>"+ data.proteinas +"</td><td>"+ data.grasas +"</td></tr>";
+            html += "</table>";
+
+            // Actualizar el contenido del contenedor con el HTML generado
+            resultados.html(html);
+        }
+
+        function mostrarSBD(data) {
+    // Obtener el contenedor donde se mostrarán los datos de la planificación de entrenamiento SBD
+            var resultadoSBD = $('#resultadoSBD');
+
+            // Construir el HTML para mostrar los datos
+            var html = "<h2>Planificación de Entrenamiento SBD</h2>";
+            html += "<table border='1'>";
+            html += "<tr><th>Semana</th><th>Peso Sentadilla</th><th>Peso Banca</th><th>Peso Muerto</th></tr>";
+            
+            // Iterar sobre los datos recibidos y agregar cada fila a la tabla
+            data.forEach(function(item) {
+                html += "<tr>";
+                html += "<td>" + item.semana + "</td>";
+                html += "<td>" + item.peso_sentadilla + "</td>";
+                html += "<td>" + item.peso_banca + "</td>";
+                html += "<td>" + item.peso_muerto + "</td>";
+                html += "</tr>";
+            });
+            
+            html += "</table>";
+
+            // Actualizar el contenido del contenedor con el HTML generado
+            resultadoSBD.html(html);
+        }
+
+
 
     </script>
     

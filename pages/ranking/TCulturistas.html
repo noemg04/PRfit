@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Noé Medina">
+    <meta name="description" content="Ginasio basicamente">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../css/estilos.css">
+    <link rel="icon" type="png" href="imagenes/fasvicon.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>GYM</title>
+</head>
+<body>
+    <header>
+        <nav class="menu">
+            <img src="/PRfitR.png" class="logo" alt="">
+            <ul>
+                <li><a href="../index.html" class="brillo">INICIO</a></li>
+                <li><a href="../Progresiones.html">Progresiones</a>
+                <ul>
+                    <li><a href="../progressions/P5basico.html">5x5 básico</a></li>
+                    <li><a href="../progressions/PSmolovJR.html">SmolovJR</a></li>
+                </ul></li>
+                <li><a href="#">Ranking TOP</a>
+                    <ul>
+                        <li><a href="TCulturistas.html">Culturistas</a></li>
+                        <li><a href="TPowerlifters.html">Powerlifters</a></li>
+                    </ul></li>
+                <li><a href="../calorias.html">Calorias</a></li>
+                <li><a href="../contacto.html">Contacto</a></li>
+                <li id="registerMenu"><a href="../register.html"><img src="/user.png" alt=""></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+      <div class="formulario TCulturistas">
+        <h2>TOP CULTURISTAS</h2>
+        <br>
+        <label for="opciones">Selecciona un Mr. Olympia:</label>
+        <select id="opciones" name="opciones">
+          <option value="1965">1965</option>
+          <option value="1966">1966</option>
+          <option value="1967">1967</option>
+          <option value="1968">1968</option>
+          <option value="1969">1969</option>
+          <option value="1970">1970</option>
+          <option value="1971">1971</option>
+          <option value="1972">1972</option>
+          <option value="1973">1973</option>
+          <option value="1974">1974</option>
+          <option value="1975">1975</option>
+          <option value="1976">1976</option>
+          <option value="1977">1977</option>
+          <option value="1978">1978</option>
+          <option value="1979">1979</option>
+          <option value="1980">1980</option>
+          <option value="1981">1981</option>
+          <option value="1982">1982</option>
+          <option value="1983">1983</option>
+          <option value="1984">1984</option>
+          <option value="1985">1985</option>
+          <option value="1986">1986</option>
+          <option value="1987">1987</option>
+          <option value="1988">1988</option>
+          <option value="1989">1989</option>
+          <option value="1990">1990</option>
+          <option value="1991">1991</option>
+          <option value="1992">1992</option>
+          <option value="1993">1993</option>
+          <option value="1994">1994</option>
+          <option value="1995">1995</option>
+          <option value="1996">1996</option>
+          <option value="1997">1997</option>
+          <option value="1998">1998</option>
+          <option value="1999">1999</option>
+          <option value="2000">2000</option>
+          <option value="2001">2001</option>
+          <option value="2002">2002</option>
+          <option value="2003">2003</option>
+          <option value="2004">2004</option>
+          <option value="2005">2005</option>
+          <option value="2006">2006</option>
+          <option value="2007">2007</option>
+          <option value="2008">2008</option>
+          <option value="2009">2009</option>
+          <option value="2010">2010</option>
+          <option value="2011">2011</option>
+          <option value="2012">2012</option>
+          <option value="2013">2013</option>
+          <option value="2014">2014</option>
+          <option value="2015">2015</option>
+          <option value="2016">2016</option>
+          <option value="2017">2017</option>
+          <option value="2018">2018</option>
+          <option value="2019">2019</option>
+          <option value="2020">2020</option>
+          <option value="2021">2021</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+        </select>
+    <br><br>
+    <button onclick="mostrarTopCulturistas()">Mostrar TOP</button><br><br>
+      </div>
+
+    <div class="main2">
+      <section>
+        <div id="top"></div>
+      </section>
+      <!-- Secciones restantes omitidas por brevedad -->
+    </div>
+  </main>
+
+    <footer>
+
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                var loader = document.getElementById('loader');
+                loader.style.display = 'none';
+            }, 1000);
+            
+        // Obtener el estado de la sesión del almacenamiento local
+            var isLoggedIn = localStorage.getItem('isLoggedIn');
+                console.log('isLoggedIn:', isLoggedIn);
+
+                if (isLoggedIn) {
+                    var lastMenuItem = $('#registerMenu');
+                    var lastMenuItemLink = lastMenuItem.find('a');
+                    var lastMenuItemImg = lastMenuItem.find('img');
+
+                    if (lastMenuItemLink.length > 0) {
+                        lastMenuItemLink.attr('href', '/perfil.html');
+                    }
+
+                    if (lastMenuItemImg.length > 0) {
+                        lastMenuItemImg.attr('src', '/userlogged.png');
+                    }
+                }
+        });
+
+
+
+
+        function mostrarTopCulturistas() {
+            var añoSeleccionado = document.getElementById("opciones").value;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var topCulturistasDiv = document.getElementById("top");
+                    if (topCulturistasDiv) {
+                        topCulturistasDiv.innerHTML = ""; // Limpiar el contenido existente
+                        topCulturistasDiv.innerHTML = this.responseText; // Insertar el nuevo contenido
+                    } else {
+                        console.error('Elemento para mostrar los resultados no encontrado');
+                    }
+                } else if (this.readyState == 4) {
+                    console.error('Error al cargar los datos:', this.statusText);
+                }
+            };
+            xhttp.open("GET", "http://localhost:3000/obtener_top_culturistas?año=" + añoSeleccionado, true);
+            xhttp.send();
+        }
+
+      </script>
+    
+</body>
+</html>
+
+<!--He usado AJAX para proporcionar una experiencia de usuario mas fluida al poder cargar los datos sin necesidad de recargarla por completo-->

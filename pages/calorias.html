@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/estilos.css">
     <link rel="icon" type="png" href="/fasvicon.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Calorias</title>
 </head>
 <body>
@@ -18,8 +19,6 @@
                 <li><a href="index.html" class="brillo">INICIO</a></li>
                 <li><a href="Progresiones.html">Progresiones</a>
                 <ul>
-                    <li><a href="progressions/PBilbo.html">Bilbo</a></li>
-                    <li><a href="progressions/PSideropolis.html">Sideropolis</a></li>
                     <li><a href="progressions/P5basico.html">5x5 básico</a></li>
                     <li><a href="progressions/PSmolovJR.html">SmolovJR</a></li>
                 </ul></li>
@@ -30,6 +29,7 @@
                     </ul></li>
                 <li><a href="calorias.html">Calorias</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
+                <li id="registerMenu"><a href="register.html"><img src="/user.png" alt=""></a></li>
             </ul>
         </nav>
     </header>
@@ -75,30 +75,37 @@
                 <button type="button" onclick="calculatecalories()">Calcular</button>
             </form>
         </div>
-        <section class="tabla">
-            <table id="resultsTable">
-                <thead>
-                    <tr>
-                        <th>Calorías (kcals)</th>
-                        <th>Proteínas (g)</th>
-                        <th>Grasas (g)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td id="caloriesResult">-</td>
-                        <td id="proteinsResult">-</td>
-                        <td id="fatsResult">-</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+
+        <div class="rutina">
+            <div id="resultados"></div>
+        </div>
     </main>
 
     <footer>
     </footer>
     
     <script>
+        var isLoggedIn = localStorage.getItem('isLoggedIn');
+        document.addEventListener('DOMContentLoaded', function() {
+        // Obtener el estado de la sesión del almacenamiento local
+            var isLoggedIn = localStorage.getItem('isLoggedIn');
+                console.log('isLoggedIn:', isLoggedIn);
+
+                if (isLoggedIn) {
+                    var lastMenuItem = $('#registerMenu');
+                    var lastMenuItemLink = lastMenuItem.find('a');
+                    var lastMenuItemImg = lastMenuItem.find('img');
+
+                    if (lastMenuItemLink.length > 0) {
+                        lastMenuItemLink.attr('href', '/perfil.html');
+                    }
+
+                    if (lastMenuItemImg.length > 0) {
+                        lastMenuItemImg.attr('src', '/userlogged.png');
+                    }
+                }
+        });
+
         function calculatecalories() {
             var weight = parseFloat(document.getElementById('startingWeight').value);
             var height = parseFloat(document.getElementById('height').value);
@@ -112,10 +119,57 @@
             var protein = weight * proteinFactor;
             var fat = weight * fatFactor;
 
-            document.getElementById('caloriesResult').textContent = calories.toFixed(2);
-            document.getElementById('proteinsResult').textContent = protein.toFixed(2);
-            document.getElementById('fatsResult').textContent = fat.toFixed(2);
+            var resultadosHTML="<h2>Dieta</h2>";
+            resultadosHTML += "<table border='1'>";
+            resultadosHTML += "<tr><th>Calorias</th><th>Proteinas</th><th>Grasas</th></tr>";
+            resultadosHTML += "<tr><td id='calories'>"+calories.toFixed(2)+"</td><td id='protein'>"+protein.toFixed(2)+"</td><td id='fat'>"+fat.toFixed(2)+"</td></tr>";
+            resultadosHTML += "<tr><td colspan='3'> <button onclick='guardarCalorias()'>Guardar</button> </td></tr>";
+            resultadosHTML += "</table>";
+            
+            document.getElementById("resultados").innerHTML = resultadosHTML;
         }
+
+        function guardarCalorias() {
+            if (isLoggedIn) {
+                var weight = parseFloat(document.getElementById('startingWeight').value);
+                var height = parseFloat(document.getElementById('height').value);
+                var age = parseFloat(document.getElementById('age').value);
+                var activityFactor = parseFloat(document.getElementById('activityLevel').value);
+                var proteinFactor = parseFloat(document.getElementById('proteinActivity').value);
+                var fatFactor = parseFloat(document.getElementById('fatRange').value);
+
+                var TMB = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+                var calories = TMB * activityFactor;
+                var protein = weight * proteinFactor;
+                var fat = weight * fatFactor;
+
+                // Objeto con los datos a guardar
+                var data = {
+                    calories: calories.toFixed(2),
+                    protein: protein.toFixed(2),
+                    fat: fat.toFixed(2)
+                };
+
+                // Simulando una solicitud AJAX para guardar los datos
+                $.ajax({
+                    type: 'POST',
+                    url: '/guardar_calorias',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    success: function(response) {
+                        alert('Datos guardados exitosamente.');
+                    },
+                    error: function(xhr, status, error) {
+                        alert('Error al guardar los datos.');
+                        console.error(error);
+                    }
+                });
+            }
+            else{
+                alert('Debes iniciar sesión para guardar los datos.');
+            }
+        }
+
     </script>
 </body>
 </html>

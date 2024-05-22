@@ -5,19 +5,23 @@ CREATE TABLE usuariosDB (
     password VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE progresiones (
+CREATE TABLE planificacion_sbd (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT,
-    nombre_progresion VARCHAR(50),
-    detalle TEXT,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+    semana INT,
+    peso_sentadilla DECIMAL(8, 2),
+    peso_banca DECIMAL(8, 2),
+    peso_muerto DECIMAL(8, 2),
+    FOREIGN KEY (usuario_id) REFERENCES usuariosDB(id)
 );
 
-CREATE TABLE detalles_progresion (
+
+CREATE TABLE dieta (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    progresion_id INT,
-    sesion VARCHAR(50),
-    peso DECIMAL(5, 2),
-    fecha DATE,
-    FOREIGN KEY (progresion_id) REFERENCES progresiones(id)
+    usuario_id INT,
+    calorias DECIMAL(8, 2),
+    proteinas DECIMAL(8, 2),
+    grasas DECIMAL(8, 2),
+    FOREIGN KEY (usuario_id) REFERENCES usuariosDB(id)
 );
+

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" type="text/css" href="../css/estilos.css">
     <link rel="icon" type="png" href="imagenes/fasvicon.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>GYM</title>
 </head>
 <body>
@@ -16,10 +17,8 @@
             <img src="/PRfitR.png" class="logo" alt="">
             <ul>
                 <li><a href="../index.html" class="brillo">INICIO</a></li>
-                <li><a href="Progresiones.html">Progresiones</a>
+                <li><a href="../Progresiones.html">Progresiones</a>
                 <ul>
-                    <li><a href="../progressions/PBilbo.html">Bilbo</a></li>
-                    <li><a href="../progressions/PSideropolis.html">Sideropolis</a></li>
                     <li><a href="../progressions/P5basico.html">5x5 básico</a></li>
                     <li><a href="../progressions/PSmolovJR.html">SmolovJR</a></li>
                 </ul></li>
@@ -28,23 +27,19 @@
                         <li><a href="TCulturistas.html">Culturistas</a></li>
                         <li><a href="TPowerlifters.html">Powerlifters</a></li>
                     </ul></li>
-                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="../calorias.html">Calorias</a></li>
+                <li><a href="../contacto.html">Contacto</a></li>
+                <li id="registerMenu"><a href="../register.html"><img src="/user.png" alt=""></a></li>
             </ul>
         </nav>
     </header>
 
     <main>
       <div class="formulario TCulturistas">
-        <h2>TOP CULTURISTAS</h2>
+        <h2>TOP POWERLIFTERS</h2>
         <br>
-        <label for="opciones">Selecciona un Mr. Olympia:</label>
+        <label for="opciones">Selecciona año de IPF:</label>
         <select id="opciones" name="opciones">
-          <option value="1965">1965</option>
-          <option value="1966">1966</option>
-          <option value="1967">1967</option>
-          <option value="1968">1968</option>
-          <option value="1969">1969</option>
-          <option value="1970">1970</option>
           <option value="1971">1971</option>
           <option value="1972">1972</option>
           <option value="1973">1973</option>
@@ -100,12 +95,12 @@
           <option value="2023">2023</option>
         </select>
     <br><br>
-    <button onclick="mostrarTopCulturistas()">Mostrar TOP</button><br><br>
+    <button onclick="mostrarTopPowerlifters()">Mostrar TOP</button><br><br>
       </div>
 
     <div class="main2">
       <section>
-        <div id="topCulturistas"></div>
+        <div id="top"></div>
       </section>
       <!-- Secciones restantes omitidas por brevedad -->
     </div>
@@ -116,25 +111,52 @@
     </footer>
 
     <script>
-function mostrarTopCulturistas() {
-    var añoSeleccionado = document.getElementById("opciones").value;
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var topCulturistasDiv = document.getElementById("topCulturistas");
-            if (topCulturistasDiv) {
-                topCulturistasDiv.innerHTML = ""; // Limpiar el contenido existente
-                topCulturistasDiv.innerHTML = this.responseText; // Insertar el nuevo contenido
-            } else {
-                console.error('Elemento para mostrar los resultados no encontrado');
-            }
-        } else if (this.readyState == 4) {
-            console.error('Error al cargar los datos:', this.statusText);
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                var loader = document.getElementById('loader');
+                loader.style.display = 'none';
+            }, 1000);
+            
+        // Obtener el estado de la sesión del almacenamiento local
+            var isLoggedIn = localStorage.getItem('isLoggedIn');
+                console.log('isLoggedIn:', isLoggedIn);
+
+                if (isLoggedIn) {
+                    var lastMenuItem = $('#registerMenu');
+                    var lastMenuItemLink = lastMenuItem.find('a');
+                    var lastMenuItemImg = lastMenuItem.find('img');
+
+                    if (lastMenuItemLink.length > 0) {
+                        lastMenuItemLink.attr('href', '/perfil.html');
+                    }
+
+                    if (lastMenuItemImg.length > 0) {
+                        lastMenuItemImg.attr('src', '/userlogged.png');
+                    }
+                }
+        });
+
+
+        
+        function mostrarTopPowerlifters() {
+            var añoSeleccionado = document.getElementById("opciones").value;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var topPowerliftersDiv = document.getElementById("top");
+                    if (topPowerliftersDiv) {
+                        topPowerliftersDiv.innerHTML = ""; // Limpiar el contenido existente
+                        topPowerliftersDiv.innerHTML = this.responseText; // Insertar el nuevo contenido
+                    } else {
+                        console.error('Elemento para mostrar los resultados no encontrado');
+                    }
+                } else if (this.readyState == 4) {
+                    console.error('Error al cargar los datos:', this.statusText);
+                }
+            };
+            xhttp.open("GET", "http://localhost:3000/obtener_top_powerlifters?año=" + añoSeleccionado, true);
+            xhttp.send();
         }
-    };
-    xhttp.open("GET", "http://localhost:3000/obtener_top_culturistas?año=" + añoSeleccionado, true);
-    xhttp.send();
-}
 
       </script>
     
