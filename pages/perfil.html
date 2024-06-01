@@ -36,30 +36,34 @@
     </header>
 
     <main>
+
         <div class="main">
-            <div class="rutina dieta">
+            <section class="progresionesHTML perfil">
+                <p>¡Bienvenido! Este es tu perfil, donde podrás encontrar todos tus valores guardados. Si aún no tienes ninguno, ¡adelante, empieza ahora!</p>
+                <div class="rutina dieta">
+                    <br>
+                    <div id="resultados" class="resultados"></div>
+                </div>
+    
+                <div class="rutina">
+                    <br>
+                    <div id="resultadoSBD" class="resultados"></div>
+                </div>
+    
+                <div class="rutina">
+                    <br>
+                    <div id="resultadosSmolovJR" class="resultados"></div>
+                </div>
+    
                 <br>
-                <div id="resultados"></div>
-            </div>
-
-            <div class="rutina">
-                <br>
-                <div id="resultadoSBD"></div>
-            </div>
-
-            <div class="rutina">
-                <br>
-                <div id="resultados"></div>
-            </div>
-
-            <br>
-            <button id="logoutButton">Desloguearse</button>
-    </div>
-
+                <button id="logoutButton" class="botonCerrarSesion">Cerrar sesión</button>
+            </section>
+        </div>
+            
     </main>
 
-    <footer>
-
+    <footer class="footer">
+        <p>&copy; 2024 PRFIT. Todos los derechos reservados.</p>
     </footer>
 
     <script>
@@ -92,10 +96,17 @@
                 });
 
                 $.get('/mostrar_sbd', function(data, status) {
-        // Verificar si la solicitud fue exitosa
                     if (status === 'success') {
-                        // Mostrar los datos de calorías en el contenedor correspondiente
                         mostrarSBD(data);
+                    } else {
+                        // Manejar el caso de error si la solicitud no fue exitosa
+                        console.error('Error al obtener los datos de SBD');
+                    }
+                });
+
+                $.get('/mostrar_smolovjr', function(data, status) {
+                    if (status === 'success') {
+                        mostrarSmolovJR(data);
                     } else {
                         // Manejar el caso de error si la solicitud no fue exitosa
                         console.error('Error al obtener los datos de SBD');
@@ -134,29 +145,74 @@
         }
 
         function mostrarSBD(data) {
-    // Obtener el contenedor donde se mostrarán los datos de la planificación de entrenamiento SBD
+            // Obtener el contenedor donde se mostrarán los datos de la planificación de entrenamiento SBD
             var resultadoSBD = $('#resultadoSBD');
 
             // Construir el HTML para mostrar los datos
             var html = "<h2>Planificación de Entrenamiento SBD</h2>";
             html += "<table border='1'>";
-            html += "<tr><th>Semana</th><th>Peso Sentadilla</th><th>Peso Banca</th><th>Peso Muerto</th></tr>";
-            
+            html += "<tr><th>Semana</th><th>Porcentaje</th><th>Repeticiones</th><th colspan='3'>Ejercicios</th></tr>";
+            html += "<tr><th></th><th></th><th></th><th>Sentadilla</th><th>Banca</th><th>Peso Muerto</th></tr>";
+
             // Iterar sobre los datos recibidos y agregar cada fila a la tabla
             data.forEach(function(item) {
                 html += "<tr>";
                 html += "<td>" + item.semana + "</td>";
+                html += "<td>" + (typeof item.porcentaje === "number" ? (item.porcentaje * 100).toFixed(2) : item.porcentaje) + "%</td>";
+                html += "<td>" + item.repeticion + "</td>";
                 html += "<td>" + item.peso_sentadilla + "</td>";
                 html += "<td>" + item.peso_banca + "</td>";
                 html += "<td>" + item.peso_muerto + "</td>";
                 html += "</tr>";
             });
-            
+
             html += "</table>";
 
             // Actualizar el contenido del contenedor con el HTML generado
             resultadoSBD.html(html);
         }
+
+        function mostrarSmolovJR(data) {
+    // Obtener el contenedor donde se mostrarán los datos de la planificación de entrenamiento Smolov Jr
+    var resultadosSmolovJR = $('#resultadosSmolovJR');
+
+    // Construir el HTML para mostrar los datos
+    var html = "";
+    html += "<h2>Planificación de Entrenamiento Smolov Jr</h2>";
+
+    var semanaAnterior = null;
+
+    data.forEach(function(item) {
+        if (item.semana !== semanaAnterior) {
+            if (semanaAnterior !== null) {
+                html += "</table>";
+            }
+            html += "<h2>SEMANA " + item.semana + "</h2>";
+            html += "<table border='1'>";
+            html += "<tr><th>DÍA</th><th>SERIES</th><th>REPETICIONES</th><th>PESO</th></tr>";
+        }
+
+        html += "<tr>";
+        html += "<td>" + item.dia + "</td>";
+        html += "<td>" + item.series + "</td>";
+        html += "<td>" + item.repeticiones + "</td>";
+        html += "<td>" + item.peso + " kg</td>";
+        html += "</tr>";
+
+        semanaAnterior = item.semana;
+    });
+
+    // Cerrar la última tabla
+    if (semanaAnterior !== null) {
+        html += "</table>";
+    }
+
+    // Actualizar el contenido del contenedor con el HTML generado
+    resultadosSmolovJR.html(html);
+}
+
+
+
 
 
 

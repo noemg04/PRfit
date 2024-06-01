@@ -38,6 +38,7 @@ dbUsuarios.connect(err => {
 // Middleware para servir archivos estáticos desde la carpeta 'pages'
 app.use(express.static('pages'));
 app.use(express.static('imagenes'));
+app.use('/styles', express.static(__dirname + '/styles'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(session({
@@ -74,7 +75,7 @@ app.get('/obtener_top_culturistas', (req, res) => {
         }
 
         if (resultados.length > 0) {
-            let respuesta = `<h3>Año ${año}:</h3>`;
+            let respuesta = `<h3>Año ${año}</h3>`;
             let categoriaActual = null;
             let categorias = {};
 
@@ -122,8 +123,7 @@ app.get('/obtener_top_powerlifters', (req, res) => {
         }
 
         if (resultados.length > 0) {
-            let respuesta = "<table border='1' class='ranking'>";
-            respuesta += `<tr><th>Año ${año}</th></tr>`;
+            let respuesta = `<h3>Año ${año}</h3>`;
             let categoriaActual = null;
             let categorias = {};
 
@@ -138,6 +138,7 @@ app.get('/obtener_top_powerlifters', (req, res) => {
             // Construir la respuesta HTML para cada categoría
             Object.keys(categorias).forEach(categoria => {
                 respuesta += "<table border='1' class='ranking'>";
+                respuesta += `<tr><th colspan="3">Open</th></tr>`;
                 respuesta += "<tr>";
                 categorias[categoria].forEach(item => {
                     respuesta += `<td>${item}</td>`;
@@ -202,17 +203,22 @@ app.post('/login', (req, res) => {
 
 app.post('/guardar_calorias', (req, res) => {
     const { calories, protein, fat } = req.body;
-    const userId = req.session.userId; // Asumiendo que estás utilizando sesiones para manejar la autenticación
+    const userId = req.session.userId;
 
     if (!userId) {
+        console.log('Usuario no autenticado');
         return res.status(401).json({ message: 'Usuario no autenticado' });
     }
 
-    const sql = 'INSERT INTO dieta (usuario_id, calorias, proteinas, grasas) VALUES (?, ?, ?, ?)';
+    console.log(`Guardando datos para el usuario ${userId}: Calorías: ${calories}, Proteínas: ${protein}, Grasas: ${fat}`);
 
+    // Consulta SQL para insertar o actualizar datos
+    const sql = 'INSERT INTO dieta (usuario_id, calorias, proteinas, grasas) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE calorias = VALUES(calorias), proteinas = VALUES(proteinas), grasas = VALUES(grasas)';
+
+    // Ejecutar la consulta
     dbUsuarios.query(sql, [userId, calories, protein, fat], (error, resultados) => {
         if (error) {
-            console.error(error);
+            console.error('Error en el servidor al guardar los datos de calorías:', error);
             return res.status(500).json({ message: 'Error en el servidor al guardar los datos de calorías.' });
         }
         res.json({ message: 'Datos de calorías guardados con éxito.' });
@@ -246,16 +252,25 @@ app.get('/mostrar_calorias', (req, res) => {
 
 // Ruta para guardar la planificación de entrenamiento para las 5 semanas
 app.post('/guardar_sbd', (req, res) => {
-    const userId = req.session.userId; // Asumiendo que estás utilizando sesiones para manejar la autenticación
+    const userId = req.session.userId;
     const planificacion = req.body;
-  
+
     if (!userId) {
-      return res.status(401).json({ message: 'Usuario no autenticado' });
+        return res.status(401).json({ message: 'Usuario no autenticado' });
     }
-    
-    const insertQuery = 'INSERT INTO planificacion_sbd (usuario_id, semana, peso_sentadilla, peso_banca, peso_muerto) VALUES (?, ?, ?, ?, ?)';
-    
-    // Utilizar async/await para insertar los datos de cada semana de forma secuencial
+
+    const insertQuery = `
+        INSERT INTO planificacion_sbd 
+        (usuario_id, semana, porcentaje, repeticion, peso_sentadilla, peso_banca, peso_muerto) 
+        VALUES (?, ?, ?, ?, ?, ?, ?) 
+        ON DUPLICATE KEY UPDATE 
+            porcentaje = VALUES(porcentaje), 
+            repeticion = VALUES(repeticion), 
+            peso_sentadilla = VALUES(peso_sentadilla), 
+            peso_banca = VALUES(peso_banca), 
+            peso_muerto = VALUES(peso_muerto)
+    `;
+
     (async () => {
         try {
             for (let i = 0; i < planificacion.length; i++) {
@@ -271,16 +286,19 @@ app.post('/guardar_sbd', (req, res) => {
     })();
 });
 
-// Función para insertar los datos de una semana en la base de datos
 async function insertarSemana(userId, semanaData, insertQuery) {
     return new Promise((resolve, reject) => {
-        dbUsuarios.query(insertQuery, [userId, semanaData.semana, semanaData.pesoSentadilla, semanaData.pesoBanca, semanaData.pesoMuerto], (error, results, fields) => {
-            if (error) {
-                reject(error);
-            } else {
-                resolve();
+        dbUsuarios.query(
+            insertQuery, 
+            [userId, semanaData.semana, semanaData.porcentaje, semanaData.repeticion, semanaData.pesoSentadilla, semanaData.pesoBanca, semanaData.pesoMuerto], 
+            (error, results, fields) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve();
+                }
             }
-        });
+        );
     });
 }
 
@@ -292,7 +310,8 @@ async function insertarSemana(userId, semanaData, insertQuery) {
         return res.status(401).json({ message: 'Usuario no autenticado' });
     }
 
-    const sql = 'SELECT semana, peso_sentadilla, peso_banca, peso_muerto FROM planificacion_sbd WHERE usuario_id = ?';
+    const sql = 'SELECT semana, porcentaje, repeticion, peso_sentadilla, peso_banca, peso_muerto FROM planificacion_sbd WHERE usuario_id = ?';
+
 
     dbUsuarios.query(sql, [userId], (error, resultados) => {
         if (error) {
@@ -305,14 +324,87 @@ async function insertarSemana(userId, semanaData, insertQuery) {
         }
 
         const planificacion = resultados.map(item => {
-            const { semana, peso_sentadilla, peso_banca, peso_muerto } = item;
-            return { semana, peso_sentadilla, peso_banca, peso_muerto };
+            const { semana, porcentaje, repeticion, peso_sentadilla, peso_banca, peso_muerto } = item;
+            return { semana, porcentaje, repeticion, peso_sentadilla, peso_banca, peso_muerto };
         });
 
         res.json(planificacion);
     });
 });
 
+
+app.post('/guardarSmolovJR', (req, res) => {
+    const userId = req.session.userId; // Asumiendo que estás utilizando sesiones para manejar la autenticación
+    const planificacion = req.body;
+
+    if (!userId) {
+        return res.status(401).json({ message: 'Usuario no autenticado' });
+    }
+
+    // Consulta SQL para insertar o actualizar datos
+    const insertQuery = `
+        INSERT INTO planificacion_smolovjr (usuario_id, semana, dia, series, repeticiones, peso)
+        VALUES (?, ?, ?, ?, ?, ?)
+        ON DUPLICATE KEY UPDATE series = VALUES(series), repeticiones = VALUES(repeticiones), peso = VALUES(peso)
+    `;
+
+    // Utilizar async/await para insertar los datos de cada día de forma secuencial
+    (async () => {
+        try {
+            for (let i = 0; i < planificacion.length; i++) {
+                const diaData = planificacion[i];
+                // Utiliza la consulta SQL definida fuera del bucle
+                await insertarDia(userId, diaData, insertQuery);
+                console.log(`Planificación de entrenamiento para la semana ${diaData.semana}, día ${diaData.dia} guardada exitosamente.`);
+            }
+            res.json({ message: 'Planificación de entrenamiento para las semanas guardada exitosamente.' });
+        } catch (error) {
+            console.error('Error al guardar la planificación:', error);
+            res.status(500).json({ error: 'Error al guardar la planificación' });
+        }
+    })();
+});
+
+// Función para insertar los datos de un día en la base de datos
+async function insertarDia(userId, diaData, insertQuery) {
+    return new Promise((resolve, reject) => {
+        dbUsuarios.query(insertQuery, [userId, diaData.semana, diaData.dia, diaData.series, diaData.repeticiones, diaData.peso], (error, results, fields) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve();
+            }
+        });
+    });
+}
+
+app.get('/mostrar_smolovjr', (req, res) => {
+    const userId = req.session.userId; // Asumiendo que estás utilizando sesiones para manejar la autenticación
+
+    if (!userId) {
+        return res.status(401).json({ message: 'Usuario no autenticado' });
+    }
+
+    const sql = 'SELECT semana, dia, series, repeticiones, peso FROM planificacion_smolovjr WHERE usuario_id = ?';
+
+    dbUsuarios.query(sql, [userId], (error, resultados) => {
+        if (error) {
+            console.error(error);
+            return res.status(500).json({ message: 'Error en el servidor al recuperar los datos de la planificación de entrenamiento.' });
+        }
+
+        if (resultados.length === 0) {
+            return res.status(404).json({ message: 'No se encontraron datos de planificación de entrenamiento para este usuario.' });
+        }
+
+        const planificacion = resultados.map(item => {
+            const { semana, dia, series, repeticiones, peso } = item;
+            return { semana, dia, series, repeticiones, peso };
+        });
+
+        res.json(planificacion);
+    });
+});
 
 
 

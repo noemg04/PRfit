@@ -4,53 +4,120 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Noé Medina">
-    <meta name="description" content="Ginasio basicamente">
-    <link rel="stylesheet" href="reset.css">
+    <meta name="description" content="Gimnasio básicamente">
+    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/estilos.css">
-    <link rel="icon" type="png" href="imagenes/fasvicon.png">
-    <title>GYM</title>
+    <link rel="icon" type="png" href="/favicoon.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>PRFIT</title>
 </head>
 <body>
     <header>
         <nav class="menu">
-            <img src="../imagenes/PRfitR.png" class="logo" alt="">
+            <img src="/PRfitR.png" class="logo" alt="">
             <ul>
                 <li><a href="index.html" class="brillo">INICIO</a></li>
                 <li><a href="Progresiones.html">Progresiones</a>
                 <ul>
-                    <li><a href="PBilbo.html">Bilbo</a></li>
-                    <li><a href="PSideropolis.html">Sideropolis</a></li>
-                    <li><a href="P5basico.html">5x5 básico</a></li>
-                    <li><a href="PSmolovJR.html">SmolovJR</a></li>
+                    <li><a href="progressions/P5basico.html">5x5 básico</a></li>
+                    <li><a href="progressions/PSmolovJR.html">SmolovJR</a></li>
                 </ul></li>
                 <li><a href="#">Ranking TOP</a>
                     <ul>
-                        <li><a href="TCulturistas.html">Culturistas</a></li>
-                        <li><a href="TPowerlifters.html">Powerlifters</a></li>
+                        <li><a href="ranking/TCulturistas.html">Culturistas</a></li>
+                        <li><a href="ranking/TPowerlifters.html">Powerlifters</a></li>
                     </ul></li>
+                <li><a href="calorias.html">Calorias</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
+                <li id="registerMenu"><a href="register.html"><img src="/user.png" alt=""></a></li>
             </ul>
         </nav>
     </header>
-    <h1>Aqui todas las progresiones</h1>
     <main>
-        
-        <br>
-        <section>
-            <a href="progressions/PBilbo.html"></a>
-            Bilbo
-        </section>
-        <section>
-            <a href="progressions/PSideropolis.html"></a>
-            Sideropolis</section>
-        <section>Básico 5x5</section>
-        <section>SmolovJR</section>
-
+        <div class="main">
+            <section class="progresionesHTML">
+                <p>¡Bienvenido a PRFIT! Tu destino para alcanzar nuevas alturas en el mundo del fitness.</p>
+                <p>En PRFIT encontrarás entrenamientos progresivos como el método 5x5 básico o el método SmolovJR, consejos de nutrición y toda la información relacionada con el gimnasio que necesitas para evolucionar hacia tu mejor versión.</p>
+                <p>Únete a nuestra comunidad y haz que cada día te acerque más a tus objetivos de transformación física.</p>
+                <br>
+                <p>Progresiones de fuerza                     
+                    <span class="lSentadilla">S</span>
+                    <span class="lBanca">B</span>
+                    <span class="lDeadlift">D</span>:</p>
+                <ul>
+                    <li>
+                        <div>
+                            <h3 class="lSentadilla">Sentadillas (Squats)</h3>
+                            <ol>
+                                <li>Sentadillas con peso corporal</li>
+                                <li>Sentadillas con barra vacía</li>
+                                <li>Incremento de peso gradual</li>
+                                <li>Sentadillas de baja a alta repetición</li>
+                                <li>Variantes de sentadillas</li>
+                            </ol>
+                        </div>
+                        <img src="/sentadilla.png" alt="Imagen de Sentadillas" class="exercise-image">
+                    </li>
+                    <li>
+                        <div>
+                            <h3 class="lBanca">Press de banca (Bench Press)</h3>
+                            <ol>
+                                <li>Press de banca con barra vacía</li>
+                                <li>Aumento de peso gradual</li>
+                                <li>Press de banca con mancuernas</li>
+                                <li>Variantes de press de banca</li>
+                            </ol>
+                        </div>
+                        <img src="/pressbanca.png" alt="Imagen de Press de Banca" class="exercise-image">
+                    </li>
+                    <li>
+                        <div>
+                            <h3 class="lDeadlift">Peso muerto (Deadlift)</h3>
+                            <ol>
+                                <li>Peso muerto con barra vacía</li>
+                                <li>Aumento de peso progresivo</li>
+                                <li>Peso muerto rumano</li>
+                                <li>Variantes de peso muerto</li>
+                            </ol>
+                        </div>
+                        <img src="/pesomuerto.png" alt="Imagen de Peso Muerto" class="exercise-image">
+                    </li>
+                </ul>
+            </section>
+        </div>
     </main>
-
-    <footer>
-
+    <footer class="footer">
+        <p>&copy; 2024 PRFIT. Todos los derechos reservados.</p>
     </footer>
-    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                var loader = document.getElementById('loader');
+                loader.style.display = 'none';
+            }, 1000);
+            var isLoggedIn = localStorage.getItem('isLoggedIn');
+            console.log('isLoggedIn:', isLoggedIn);
+            if (isLoggedIn) {
+                var lastMenuItem = $('#registerMenu');
+                var lastMenuItemLink = lastMenuItem.find('a');
+                var lastMenuItemImg = lastMenuItem.find('img');
+                if (lastMenuItemLink.length > 0) {
+                    lastMenuItemLink.attr('href', '/perfil.html');
+                }
+                if (lastMenuItemImg.length > 0) {
+                    lastMenuItemImg.attr('src', '/userlogged.png');
+                }
+            }
+        });
+    </script>
 </body>
-</html><!---->
+</html>
+
+<!--
+██████╗  ██████╗  ███████╗ ██╗ █████████╗ 
+██╔══██╗ ██╔══██╗ ██╔════╝ ██║ ╚══██╔══╝ 
+██████╔╝ ██████╔╝ █████╗   ██║    ██║    
+██╔═══╝  ██╔══██╗ ██╔══╝   ██║    ██║    
+██║      ██║  ██║ ██║      ██║    ██║    
+╚═╝      ╚═╝  ╚═╝ ╚═╝      ╚═╝    ╚═╝   
+-->

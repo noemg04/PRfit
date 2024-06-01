@@ -37,40 +37,37 @@
 
     <main>
         <div class="main">
-        <section class="form" id="registerForm">
-            <form action="/register" method="POST" id="userForm">
-                <div class="title">Bienvenido a <span class="highlight">PR</span>FIT</div>
-                <div class="subtitle">¡Vamos a crear tu cuenta!</div>
-          
-                <div class="input-container ic1">
-                  <input placeholder="" type="text" class="input" id="username" name="username" required>
-                  <div class="cut cut-large"></div>
-                  <label class="iLabel" for="firstname">Nombre de usuario</label>
-                </div>
-          
-                <div class="input-container ic2" id="emailContainer">
-                  <input placeholder="" type="email" class="input" id="email" name="email" >
-                  <div class="cut cut-short"></div>
-                  <label class="iLabel" for="email">Email</label>
-                </div>
-                <div class="input-container ic2">
-                  <input placeholder="" type="password" class="input" id="password" name="password" required>
-                  <div class="cut"></div>
-                  <label class="iLabel" for="password">Contraseña</label>
-                </div>
-                <button class="submit" type="text">Enviar</button><br><br>
-                <button type="button" id="toggleForm">Iniciar sesión</button>
-                <div id="resultMessage"></div>
-            </form>
+            <section class="form" id="registerForm">
+                <form action="/register" method="POST" id="userForm">
+                    <div class="title">Bienvenido a <span class="highlight">PR</span>FIT</div>
+                    <div class="subtitle">¡Vamos a crear tu cuenta!</div>
             
+                    <div class="input-container ic1">
+                    <input placeholder="" type="text" class="input" id="username" name="username" required>
+                    <div class="cut cut-large"></div>
+                    <label class="iLabel" for="firstname">Nombre de usuario</label>
+                    </div>
             
-        </section>
-    </div>
-
+                    <div class="input-container ic2" id="emailContainer">
+                    <input placeholder="" type="email" class="input" id="email" name="email" >
+                    <div class="cut cut-short"></div>
+                    <label class="iLabel" for="email">Email</label>
+                    </div>
+                    <div class="input-container ic2">
+                    <input placeholder="" type="password" class="input" id="password" name="password" required>
+                    <div class="cut"></div>
+                    <label class="iLabel" for="password">Contraseña</label>
+                    </div>
+                    <button class="submit" type="text">Enviar</button><br><br>
+                    <button type="button" id="toggleForm">Iniciar sesión</button>
+                    <div id="resultMessage"></div>
+                </form>
+            </section>
+        </div>
     </main>
 
-    <footer>
-
+    <footer class="footer">
+        <p>&copy; 2024 PRFIT. Todos los derechos reservados.</p>
     </footer>
 
     <script>
@@ -79,6 +76,7 @@
             function handleLoginSuccess() {
                 // Puedes dejar esta función vacía por ahora
                 // o agregar la lógica que desees ejecutar después de que el usuario inicie sesión correctamente
+                window.location.href = '/perfil.html';
             }
             var isLoggedIn = localStorage.getItem('isLoggedIn');
             console.log('isLoggedIn:', isLoggedIn);

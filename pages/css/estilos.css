@@ -110,6 +110,10 @@ nav.menu li {
     vertical-align: middle;
    }
 
+   .menu img:hover{
+    background-color: rgba(255, 99, 71, 0.2);
+   }
+
 /*HEADER*/
 
 
@@ -128,6 +132,27 @@ main.pagInfo p{
   color: #DCCABC;
   text-align: center;
   margin: 1%;
+}
+
+.formularioCals{
+  color: #DCCABC;
+  text-align: center;
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 3%;
+  align-items:center;
+  justify-content: space-around;
+}
+
+.formularioCals button{
+  background-color: #cc0000;
+  padding: 1%;
+  border-radius: 10px;
+  color: white;
+}
+
+.formularioCals label{
+  
 }
 
 .formulario button{
@@ -173,8 +198,12 @@ main.pagInfo p{
   background-color: #212121;
   border-radius: 10px;
   color: #DCCABC;
-  padding: 1%;
+  padding: 0%;
   font-size: 13px;
+}
+
+#top{
+  padding: 5%;
 }
 
 
@@ -460,6 +489,18 @@ section p{
   width: 100%;
 }
 
+
+/* calorias */
+.bgInput{
+  background-color: #212121;
+  border-radius: 5px;
+  border: 0;
+  color: white;
+  font-size: 15px;
+  text-align: center;
+  
+}
+
 .cut {
   background-color: #202020 ;
   border-radius: 10px;
@@ -538,16 +579,17 @@ section p{
 
 .rutina{
   margin: 0 auto;
+  margin-top: 1%;
   width: 40%;
   text-align: center;
 }
 
-#resultados h2{
+.resultados h2{
   background-color: #495867;
   padding: 1%;
 }
 
-#resultados table{
+.resultados table{
   width: 100%;
   text-align: center;
   border: 1px solid black;
@@ -555,14 +597,20 @@ section p{
   background-color: #202020;
 }
 
-#resultados th{
+.resultados th{
   border: 1px solid black;
   padding: 1%;
 }
-#resultados td{
+.resultados td{
   border: 1px solid black;
   padding: 1%;
 }
+
+#resultadoSBD h2{
+
+}
+
+
 
 h3{
   padding-bottom: 5%;
@@ -658,4 +706,198 @@ h3{
 .cta:hover .hover-underline-animation:after {
   transform: scaleX(1);
   transform-origin: bottom left;
+}
+
+
+
+.calsContainer {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 2%;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas de igual tamaño */
+  grid-template-rows: auto auto auto; /* Tres filas de tamaño automático */
+  gap: 10px; /* Espacio entre las celdas */
+  text-align: center;
+  background-color: #212121;
+  border-radius: 10px;
+  color: white;
+  font-size: 20px;
+  padding: 1%;
+  font-weight: bold;
+}
+
+.calsContainer button{
+  background-color: #cc0000;
+  padding: 1%;
+  border-radius: 10px;
+  color: white;
+  grid-column: 1 / -1; /* Ocupa ambas columnas */
+  justify-self: center;
+  
+}
+
+.item{
+  border: 1px solid black;
+  border-bottom: 3px solid black;
+  padding: 2%;
+  border-radius: 10px;
+  background-color: #495867;
+  
+}
+
+.item p{
+  color: white;
+  font-weight: bold;
+  text-shadow: 1px 1px 10px black;
+}
+.item option:hover{
+  background-color: red;
+}
+
+.item select{
+  transition: all 0.25s ease;
+}
+
+.item1 {
+  grid-column: 1 / 2; /* Primera columna */
+  grid-row: 1 / 2; /* Primera fila */
+}
+
+.item2 {
+  grid-column: 2 / 3; /* Segunda columna */
+  grid-row: 1 / 2; /* Primera fila */
+}
+
+.item3 {
+  grid-column: 1 / 2; /* Primera columna */
+  grid-row: 2 / 3; /* Segunda fila */
+}
+
+.item4 {
+  grid-column: 2 / 3; /* Segunda columna */
+  grid-row: 2 / 3; /* Segunda fila */
+}
+
+.item5 {
+  grid-column: 1 / -1; /* Ocupa ambas columnas */
+  grid-row: 3 / 4; /* Tercera fila */
+  
+}
+
+
+.gramos{
+  display: flex;
+  align-items:center;
+  justify-content:center;
+  text-align: center;
+}
+
+
+.progresionesHTML {
+  text-align: center;
+}
+
+.progresionesHTML ul {
+  width: 80%;
+  list-style: none;
+  padding: 2%;
+  margin: 0 auto;
+  margin-top: 1%;
+  text-align: center; /* Alineación del texto a la izquierda para mantener el contenido de la lista alineado correctamente */
+  border: 1px solid black;
+  background-color: #495867;
+  border-radius: 5px;
+}
+
+.progresionesHTML ul li {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-around; /* Alinear elementos dentro de cada ítem de lista */
+  align-items: center; /* Centrar verticalmente los elementos dentro de cada ítem de lista */
+}
+
+.progresionesHTML div{
+}
+
+
+.exercise-image {
+  max-width: 200px;
+  height: auto;
+  margin-left: 20px;
+}
+
+.lSentadilla {/*l por letra*/
+  color: red; /* Rojo */
+}
+
+.lBanca {
+  color: lightgreen; /* Verde */
+}
+
+.lDeadlift{
+  color: lightblue; /* Azul */
+}
+
+/* Footer */
+.footer {
+  background-color: #171717; /* Negro grafito */
+  color: #DCCABC; /* Color del texto */
+  text-align: center;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+
+.perfil{
+  width: 80%;
+}
+
+.perfil div{
+  width: 100%;
+  margin: 0 auto;
+}
+
+.perfil p{
+  margin-top: 0;
+}
+
+.botonGuardar {
+  background-color: #007bff; /* Azul oscuro */
+  padding: 1%;
+  border-radius: 10px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.botonGuardar:hover {
+  background-color: #0069d9; /* Azul más oscuro al pasar el ratón */
+}
+
+.botonGuardar:active {
+  background-color: #0056b3; /* Azul aún más oscuro al hacer clic */
+}
+
+.botonCerrarSesion {
+  background-color: #4B0082; /* Midnight Purple */
+  padding: 1%;
+  border-radius: 10px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.botonCerrarSesion:hover {
+  background-color: #3A0069; /* Más oscuro al pasar el ratón */
+}
+
+.botonCerrarSesion:active {
+  background-color: #2B004D; /* Aún más oscuro al hacer clic */
 }

@@ -1,0 +1,160 @@
+// _buttons.scss
+@import '_mixins'; // Importa los mixins aquí
+
+@mixin clignote {
+  0% {
+    background-position: 0 0, 50% 0, 100% 0, 0 50%, 50% 50%, 100% 50%, 0 100%, 50% 100%, 100% 100%;
+  }
+  50% {
+    background-position: 0 50%, 50% 50%, 100% 50%, 0 100%, 50% 100%, 100% 100%, 0 0, 50% 0, 100% 0;
+  }
+  100% {
+    background-position: 0 0, 50% 0, 100% 0, 0 50%, 50% 50%, 100% 50%, 0 100%, 50% 100%, 100% 100%;
+  }
+}
+
+button {
+  position: relative;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  outline-offset: 4px;
+  transition: filter 250ms;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: #00000040;
+  will-change: transform;
+  transform: translateY(2px);
+  transition: transform 600ms cubic-bezier(.3, .7, .4, 1);
+}
+
+.edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: linear-gradient(to left, #52001b 0%, #931010 8%, #931010 92%, #52001b 100%);
+}
+
+.front {
+  display: block;
+  position: relative;
+  padding: 12px 27px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  color: white;
+  background: $secondary-color;
+  will-change: transform;
+  transform: translateY(-4px);
+  transition: transform 600ms cubic-bezier(.3, .7, .4, 1);
+}
+
+button:hover {
+  filter: brightness(110%);
+}
+
+button:hover .front {
+  transform: translateY(-6px);
+  transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5);
+}
+
+button:active .front {
+  transform: translateY(-2px);
+  transition: transform 34ms;
+}
+
+button:hover .shadow {
+  transform: translateY(4px);
+  transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5);
+}
+
+button:active .shadow {
+  transform: translateY(1px);
+  transition: transform 34ms;
+}
+
+button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+button a {
+  text-decoration: none;
+}
+
+.botonprogresion {
+  position: relative;
+  padding: 10px 22px;
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  background-color: $secondary-color;
+  transition: all 0.2s ease;
+  border: 1px solid black;
+}
+
+.botonprogresion:active {
+  transform: scale(0.96);
+}
+
+.botonprogresion:before,
+.botonprogresion:after {
+  position: absolute;
+  content: "";
+  width: 150%;
+  left: 50%;
+  height: 100%;
+  transform: translateX(-50%);
+  z-index: -1000;
+  background-repeat: no-repeat;
+}
+
+.botonprogresion:hover:before {
+  top: -70%;
+  background-image: radial-gradient(circle, $secondary-color 20%, transparent 20%),
+    radial-gradient(circle, transparent 20%, $secondary-color 20%, transparent 30%),
+    radial-gradient(circle, $secondary-color 20%, transparent 20%),
+    radial-gradient(circle, $secondary-color 20%, transparent 20%),
+    radial-gradient(circle, transparent 10%, $secondary-color 15%, transparent 20%),
+    radial-gradient(circle, $secondary-color 20%, transparent 20%),
+    radial-gradient(circle, $secondary-color 20%, transparent 20%),
+    radial-gradient(circle, $secondary-color 20%, transparent 20%),
+    radial-gradient(circle, $secondary-color 20%, transparent 20%);
+  background-size: 15% 15%;
+  animation: clignote 0.5s infinite;
+}
+
+.botonprogresion:hover:after {
+  bottom: -70%;
+  background-image: radial-gradient(circle, $secondary-color 20%, transparent 20%),
+    radial-gradient(circle, transparent 20%, $secondary-color 20%, transparent 30%),
+    radial-gradient(circle, $secondary-color 20%, transparent 20%),
+    radial-gradient(circle, $secondary-color 20%, transparent 20%),
+    radial-gradient(circle, transparent 10%, $secondary-color 15%, transparent 20%),
+    radial-gradient(circle, $secondary-color 20%, transparent 20%),
+    radial-gradient(circle, $secondary-color 20%, transparent 20%),
+    radial-gradient(circle, $secondary-color 20%, transparent 20%),
+    radial-gradient(circle, $secondary-color 20%, transparent 20%);
+  background-size: 15% 15%;
+  animation: clignote 0.5s infinite;
+}
+
+@keyframes clignote {
+  @include clignote;
+}
+
+.botonrojo {
+  @include button-styles($secondary-color, #fff);
+}

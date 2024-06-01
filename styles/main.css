@@ -1,0 +1,348 @@
+body {
+  background-color: #171717;
+  font-family: "Open Sans", sans-serif;
+}
+
+#loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #171717;
+  z-index: 9999;
+}
+
+.logo {
+  width: 5%;
+}
+
+nav.menu {
+  background-color: #DCCABC;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2%;
+}
+
+nav.menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav.menu li {
+  display: inline;
+  margin-right: 20px;
+}
+
+.menu ul a {
+  color: black;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 16px;
+  padding: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.menu ul li {
+  position: relative;
+  margin: 0;
+  padding: 2px;
+}
+
+.menu ul li:hover {
+  background: #cc0000;
+  border-radius: 10px;
+}
+
+.menu ul ul {
+  width: 100%;
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #212121;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+.menu ul ul li {
+  float: none;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+.menu ul ul a {
+  color: #DCCABC;
+  font-size: 11px;
+  line-height: 120%;
+}
+
+.menu ul li:hover > ul {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu img {
+  vertical-align: middle;
+}
+
+main.pagInfo {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+main.pagInfo p {
+  margin-top: 1%;
+}
+
+.topCulturistas {
+  padding: 1%;
+}
+
+.topCulturistas h4 {
+  color: red;
+}
+
+.topCulturistas li {
+  padding: 1%;
+}
+
+.main {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  letter-spacing: 1px;
+}
+
+.main2 {
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  letter-spacing: 1px;
+}
+
+.main2 section {
+  margin: 0 auto;
+  text-align: center;
+  background-color: #212121;
+  border-radius: 10px;
+  color: #DCCABC;
+  padding: 1%;
+  font-size: 13px;
+}
+
+section {
+  padding: 2%;
+  margin: 1%;
+  text-align: center;
+  background-color: #212121;
+  border-radius: 10px;
+  color: #DCCABC;
+}
+
+section p {
+  margin-top: 3%;
+}
+
+button {
+  position: relative;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  outline-offset: 4px;
+  transition: filter 250ms;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.2509803922);
+  will-change: transform;
+  transform: translateY(2px);
+  transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+
+.edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: linear-gradient(to left, #52001b 0%, #931010 8%, #931010 92%, #52001b 100%);
+}
+
+.front {
+  display: block;
+  position: relative;
+  padding: 12px 27px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  color: white;
+  background: #cc0000;
+  will-change: transform;
+  transform: translateY(-4px);
+  transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+
+button:hover {
+  filter: brightness(110%);
+}
+
+button:hover .front {
+  transform: translateY(-6px);
+  transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+}
+
+button:active .front {
+  transform: translateY(-2px);
+  transition: transform 34ms;
+}
+
+button:hover .shadow {
+  transform: translateY(4px);
+  transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+}
+
+button:active .shadow {
+  transform: translateY(1px);
+  transition: transform 34ms;
+}
+
+button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+button a {
+  text-decoration: none;
+}
+
+.botonprogresion {
+  position: relative;
+  padding: 10px 22px;
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  background-color: #cc0000;
+  transition: all 0.2s ease;
+  border: 1px solid black;
+}
+
+.botonprogresion:active {
+  transform: scale(0.96);
+}
+
+.botonprogresion:before,
+.botonprogresion:after {
+  position: absolute;
+  content: "";
+  width: 150%;
+  left: 50%;
+  height: 100%;
+  transform: translateX(-50%);
+  z-index: -1000;
+  background-repeat: no-repeat;
+}
+
+.botonprogresion:hover:before {
+  top: -70%;
+  background-image: radial-gradient(circle, #cc0000 20%, transparent 20%), radial-gradient(circle, transparent 20%, #cc0000 20%, transparent 30%), radial-gradient(circle, #cc0000 20%, transparent 20%), radial-gradient(circle, #cc0000 20%, transparent 20%), radial-gradient(circle, transparent 10%, #cc0000 15%, transparent 20%), radial-gradient(circle, #cc0000 20%, transparent 20%), radial-gradient(circle, #cc0000 20%, transparent 20%), radial-gradient(circle, #cc0000 20%, transparent 20%), radial-gradient(circle, #cc0000 20%, transparent 20%);
+  background-size: 15% 15%;
+  animation: clignote 0.5s infinite;
+}
+
+.botonprogresion:hover:after {
+  bottom: -70%;
+  background-image: radial-gradient(circle, #cc0000 20%, transparent 20%), radial-gradient(circle, transparent 20%, #cc0000 20%, transparent 30%), radial-gradient(circle, #cc0000 20%, transparent 20%), radial-gradient(circle, #cc0000 20%, transparent 20%), radial-gradient(circle, transparent 10%, #cc0000 15%, transparent 20%), radial-gradient(circle, #cc0000 20%, transparent 20%), radial-gradient(circle, #cc0000 20%, transparent 20%), radial-gradient(circle, #cc0000 20%, transparent 20%), radial-gradient(circle, #cc0000 20%, transparent 20%);
+  background-size: 15% 15%;
+  animation: clignote 0.5s infinite;
+}
+
+@keyframes clignote {
+  0% {
+    background-position: 0 0, 50% 0, 100% 0, 0 50%, 50% 50%, 100% 50%, 0 100%, 50% 100%, 100% 100%;
+  }
+  50% {
+    background-position: 0 50%, 50% 50%, 100% 50%, 0 100%, 50% 100%, 100% 100%, 0 0, 50% 0, 100% 0;
+  }
+  100% {
+    background-position: 0 0, 50% 0, 100% 0, 0 50%, 50% 50%, 100% 50%, 0 100%, 50% 100%, 100% 100%;
+  }
+}
+.botonrojo {
+  background-color: #cc0000;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.botonrojo:hover {
+  background-color: #990000;
+}
+
+form#formulario1 {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  background-color: #212121;
+  border-radius: 10px;
+  color: #DCCABC;
+  padding: 1%;
+  font-size: 13px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 5px;
+}
+
+input[type=text],
+input[type=email],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+button[type=submit] {
+  background-color: #DCCABC;
+  color: #cc0000;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button[type=submit]:hover {
+  background-color: #cbb09b;
+}
+
+/*# sourceMappingURL=main.css.map */

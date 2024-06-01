@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../../css/reset.css">
     <link rel="stylesheet" type="text/css" href="../../css/estilos.css">
     <link rel="icon" type="png" href="imagenes/fasvicon.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>GYM</title>
 </head>
 <body>
@@ -47,72 +48,110 @@
       </div>
 
       <div class="rutina">
-        <div id="resultados"></div>
+        <div id="resultados" class="resultados"></div>
     </div>
       <!-- Secciones restantes omitidas por brevedad -->
     </div>
   </main>
 
-    <footer>
-
-    </footer>
+  <footer class="footer">
+    <p>&copy; 2024 PRFIT. Todos los derechos reservados.</p>
+</footer>
     
     <script>
-        function calculateRoutine() {
-            var maxRep = parseFloat(document.getElementById("maxRep").value);
-            var increment = parseFloat(document.getElementById("increment").value);
+        var isLoggedIn = localStorage.getItem('isLoggedIn');
+        var planificacion = []; 
 
-            var weeks = ["SEMANA 1", "SEMANA 2", "SEMANA 3"];
-            var days = ["Lunes", "Miércoles", "Viernes", "Sábado"];
-            var seriesReps = [
-                { series: 6, reps: 6, percentage: 0.70 },
-                { series: 7, reps: 5, percentage: 0.75 },
-                { series: 8, reps: 4, percentage: 0.80 },
-                { series: 10, reps: 3, percentage: 0.85 }
-            ];
+        document.addEventListener('DOMContentLoaded', function() {
+        // Obtener el estado de la sesión del almacenamiento local
+            var isLoggedIn = localStorage.getItem('isLoggedIn');
+                console.log('isLoggedIn:', isLoggedIn);
 
-            var rutinaHTML = "";
+                if (isLoggedIn) {
+                    var lastMenuItem = $('#registerMenu');
+                    var lastMenuItemLink = lastMenuItem.find('a');
+                    var lastMenuItemImg = lastMenuItem.find('img');
 
-            for (var i = 0; i < weeks.length; i++) {
-                rutinaHTML += "<h2>" + weeks[i] + "</h2>";
-                rutinaHTML += "<table border='1'>";
-                rutinaHTML += "<tr><th>DÍA</th><th>SERIES</th><th>REPETICIONES</th><th>PESO</th></tr>";
+                    if (lastMenuItemLink.length > 0) {
+                        lastMenuItemLink.attr('href', '/perfil.html');
+                    }
 
-                for (var j = 0; j < days.length; j++) {
-                    var currentSeriesReps = seriesReps[j];
-                    var baseWeight = maxRep * currentSeriesReps.percentage;
-                    var addedWeight = (i === 0) ? 0 : increment * (i === 1 ? 1 : 1.5);
-                    var totalWeight = baseWeight + addedWeight;
-
-                    rutinaHTML += "<tr>";
-                    rutinaHTML += "<td>" + days[j] + "</td>";
-                    rutinaHTML += "<td>" + currentSeriesReps.series + "</td>";
-                    rutinaHTML += "<td>" + currentSeriesReps.reps + "</td>";
-                    rutinaHTML += "<td>" + totalWeight.toFixed(1) + " kg</td>";
-                    rutinaHTML += "</tr>";
+                    if (lastMenuItemImg.length > 0) {
+                        lastMenuItemImg.attr('src', '/userlogged.png');
+                    }
                 }
-                
-                rutinaHTML += "</table>";
+        });
+
+        function calculateRoutine() {
+        var maxRep = parseFloat(document.getElementById("maxRep").value);
+        var increment = parseFloat(document.getElementById("increment").value);
+
+        var weeks = [1, 2, 3];
+        var days = ["Lunes", "Miércoles", "Viernes", "Sábado"];
+        var seriesReps = [
+            { series: 6, reps: 6, percentage: 0.70 },
+            { series: 7, reps: 5, percentage: 0.75 },
+            { series: 8, reps: 4, percentage: 0.80 },
+            { series: 10, reps: 3, percentage: 0.85 }
+        ];
+
+        var rutinaHTML = "";
+        planificacion = [];
+
+        for (var i = 0; i < weeks.length; i++) {
+            rutinaHTML += "<h2>SEMANA " + weeks[i] + "</h2>";
+            rutinaHTML += "<table border='1'>";
+            rutinaHTML += "<tr><th>DÍA</th><th>SERIES</th><th>REPETICIONES</th><th>PESO</th></tr>";
+
+            for (var j = 0; j < days.length; j++) {
+                var currentSeriesReps = seriesReps[j];
+                var baseWeight = maxRep * currentSeriesReps.percentage;
+                var addedWeight = (i === 0) ? 0 : increment * (i === 1 ? 1 : 1.5);
+                var totalWeight = baseWeight + addedWeight;
+
+                rutinaHTML += "<tr>";
+                rutinaHTML += "<td>" + days[j] + "</td>";
+                rutinaHTML += "<td>" + currentSeriesReps.series + "</td>";
+                rutinaHTML += "<td>" + currentSeriesReps.reps + "</td>";
+                rutinaHTML += "<td>" + totalWeight.toFixed(2) + " kg</td>";
+                rutinaHTML += "</tr>";
+
+                planificacion.push({
+                    semana: weeks[i],
+                    dia: days[j],
+                    series: currentSeriesReps.series,
+                    repeticiones: currentSeriesReps.reps,
+                    peso: totalWeight.toFixed(2)
+                });
             }
-            rutinaHTML += "<h2> <button onclick='guardarSmolovJR()'>Guardar</button> </h2>";
 
-            document.getElementById("resultados").innerHTML = rutinaHTML;
-
-            fetch('/guardarSmolovJR', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    usuario_id: userId,
-                    nombre_progresion: 'SmolovJR',
-                    detalles: detalles
-                })
-            })
-            .then(response => response.json())
-            .then(data => console.log('Success:', data))
-            .catch((error) => console.error('Error:', error));
+            rutinaHTML += "</table>";
         }
+
+        rutinaHTML += "<h2> <button onclick='guardarSmolovJR(planificacion)' class='botonGuardar'>Guardar</button> </h2>";
+        document.getElementById("resultados").innerHTML = rutinaHTML;
+    }
+
+    function guardarSmolovJR(planificacion) {
+        console.log("Planificación:", planificacion);
+        if (isLoggedIn) {
+            $.ajax({
+                type: 'POST',
+                url: '/guardarSmolovJR',
+                data: JSON.stringify(planificacion),
+                contentType: 'application/json',
+                success: function(response) {
+                    alert('Planificación guardada exitosamente.');
+                },
+                error: function(xhr, status, error) {
+                    alert('Error al guardar la planificación.');
+                    console.error(error);
+                }
+            });
+        } else {
+            alert('Debes iniciar sesión para guardar los datos.');
+        }
+    }
     </script>
       
     

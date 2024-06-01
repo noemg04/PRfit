@@ -1,0 +1,74 @@
+/* Intro.js Styles Customization */
+.introjs-tooltip {
+    background-color: #212121; /* Fondo similar al de las secciones */
+    border-radius: 10px;
+    color: #DCCABC; /* Color de texto */
+    padding: 20px;
+    font-family: "Open Sans", sans-serif;
+    border: 1px solid black;
+}
+
+.introjs-tooltip h1 {
+    color: #cc0000; /* Título en rojo */
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.introjs-tooltip p {
+    color: #DCCABC; /* Texto de párrafo */
+    margin-top: 5px;
+}
+
+.introjs-tooltiptext {
+    color: #DCCABC; /* Texto del tooltip */
+}
+
+.introjs-helperLayer {
+    background: rgba(0, 0, 0, 0.5); /* Oscurecer el fondo */
+}
+
+.introjs-overlay {
+    background: rgba(0, 0, 0, 0.5); /* Fondo oscuro */
+}
+
+.introjs-arrow {
+    border-color: #212121 transparent transparent transparent; /* Flecha del tooltip */
+}
+
+.introjs-button {
+    background-color: #cc0000; /* Fondo de los botones */
+    color: white; /* Color del texto */
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    font-family: "Open Sans", sans-serif;
+    cursor: pointer;
+}
+
+.introjs-button:hover {
+    background-color: #a80000; /* Fondo del botón al pasar el ratón */
+    color: white;
+}
+
+.introjs-button.introjs-prevbutton,
+.introjs-button.introjs-skipbutton,
+.introjs-button.introjs-nextbutton,
+.introjs-button.introjs-donebutton {
+    margin-right: 5px;
+}
+
+.introjs-progress {
+    background-color: #495867; /* Color de fondo de la barra de progreso */
+}
+
+.introjs-progressbar {
+    background-color: #cc0000; /* Color de la barra de progreso */
+}
+
+.introjs-skipbutton{
+    color: #495867;
+}
+.introjs-skipbutton:hover{
+    color: white;
+    text-shadow: 1px 1px 10px white;
+}

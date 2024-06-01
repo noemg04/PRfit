@@ -8,8 +8,10 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/estilos.css">
     <link rel="icon" type="png" href="/favicoon.png">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script><!--  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/4.3.0/introjs.min.css"><!--  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/4.3.0/intro.min.js"></script><!--  -->
+    <link rel="stylesheet" href="css/introjs-custom.css"><!--CSS para la introducción-->
     <title>PRFIT</title>
 </head>
 <body>
@@ -18,18 +20,18 @@
             <img src="/PRfitR.png" class="logo" alt="">
             <ul>
                 <li><a href="index.html" class="brillo">INICIO</a></li>
-                <li><a href="Progresiones.html">Progresiones</a>
+                <li><a href="Progresiones.html" id="progresionesMenu">Progresiones</a>
                 <ul>
                     <li><a href="progressions/P5basico.html">5x5 básico</a></li>
                     <li><a href="progressions/PSmolovJR.html">SmolovJR</a></li>
                 </ul></li>
-                <li><a href="#">Ranking TOP</a>
+                <li><a href="#" id="rankingMenu">Ranking TOP</a>
                     <ul>
                         <li><a href="ranking/TCulturistas.html">Culturistas</a></li>
                         <li><a href="ranking/TPowerlifters.html">Powerlifters</a></li>
                     </ul></li>
-                <li><a href="calorias.html">Calorias</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="calorias.html" id="caloriasMenu">Calorias</a></li>
+                <li><a href="contacto.html" id="contactoMenu">Contacto</a></li>
                 <li id="registerMenu"><a href="register.html"><img src="/user.png" alt=""></a></li>
             </ul>
         </nav>
@@ -40,11 +42,10 @@
             <div id="loader"><img src="/cargando.gif" alt=""></div>
 
         <section>
-            <p>¡Bienvenido a PRFIT! Tu destino para alcanzar nuevas alturas en el mundo del fitness.</p>
+            <p>¡Bienvenido a <span class="highlight">PR</span>FIT! Tu destino para alcanzar nuevas alturas en el mundo del fitness.</p>
             <p>En PRFIT encontrarás entrenamientos progresivos, consejos de nutrición y toda la información relacionada con el gimnasio que necesitas para evolucionar hacia tu mejor versión.</p>
             <p>Únete a nuestra comunidad y haz que cada día te acerque más a tus objetivos de transformación física.</p>
-            
-            <br>
+            <p><button onclick="startTour()" class="botonprogresion">EXPLORAR</button></p>
             
         </section>
         <section><img src="/inicio.jpg" alt=""></section>
@@ -52,9 +53,10 @@
 
     </main>
 
-    <footer>
-
-    </footer>
+    <footer class="footer">
+          <p>&copy; 2024 PRFIT. Todos los derechos reservados.</p>
+      </footer>
+      
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -81,6 +83,46 @@
                     }
                 }
         });
+
+        function startTour() {
+            introJs().setOptions({
+                steps: [
+                    {
+                        intro: "¡Bienvenido a PRFIT! Vamos a explorar las secciones principales."
+                    },
+                    {
+                        element: document.querySelector('nav.menu'),
+                        intro: "Este es el menú principal. Aquí encontrarás todas las secciones importantes."
+                    },
+                    {
+                        element: document.querySelector('#progresionesMenu'),
+                        intro: "En Progresiones encontrarás planes de entrenamiento progresivos para mejorar tu rendimiento."
+                    },
+                    {
+                        element: document.querySelector('#rankingMenu'),
+                        intro: "En el Ranking TOP encontrarás los mejores culturistas y powerlifters."
+                    },
+                    {
+                        element: document.querySelector('#caloriasMenu'),
+                        intro: "En la sección de Calorías puedes calcular tu ingesta calórica diaria."
+                    },
+                    {
+                        element: document.querySelector('#contactoMenu'),
+                        intro: "En la sección de Contacto puedes ponerte en contacto con nosotros para cualquier consulta."
+                    },
+                    {
+                        element: document.querySelector('li#registerMenu a'),
+                        intro: "Aquí puedes registrarte o acceder a tu perfil si ya estás registrado."
+                    }
+                ],
+                showProgress: true,
+                showBullets: true,
+                nextLabel: 'Siguiente',
+                prevLabel: 'Anterior',
+                skipLabel: 'Saltar',
+                doneLabel: 'Hecho'
+            }).start();
+        }
     </script>
     
 </body>
