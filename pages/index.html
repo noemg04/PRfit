@@ -1,65 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Metadatos -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Noé Medina">
-    <meta name="description" content="Ginasio basicamente">
+    <meta name="description" content="PRFIT">
+    <!-- Estilos -->
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/estilos.css">
+    <!-- Favicon -->
     <link rel="icon" type="png" href="/favicoon.png">
+    <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script><!--  -->
+    <!-- Estilos para intro.js -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/4.3.0/introjs.min.css"><!--  -->
+    <!-- Librería intro.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/4.3.0/intro.min.js"></script><!--  -->
-    <link rel="stylesheet" href="css/introjs-custom.css"><!--CSS para la introducción-->
+    <!-- Estilos personalizados para la introducción -->
+    <link rel="stylesheet" href="css/introjs-custom.css"><!-- CSS para la introducción -->
     <title>PRFIT</title>
 </head>
 <body>
     <header>
+        <!-- Menú de navegación -->
         <nav class="menu">
+            <!-- Logo -->
             <img src="/PRfitR.png" class="logo" alt="">
+            <!-- Lista de elementos del menú -->
             <ul>
                 <li><a href="index.html" class="brillo">INICIO</a></li>
                 <li><a href="Progresiones.html" id="progresionesMenu">Progresiones</a>
-                <ul>
-                    <li><a href="progressions/P5basico.html">5x5 básico</a></li>
-                    <li><a href="progressions/PSmolovJR.html">SmolovJR</a></li>
-                </ul></li>
+                    <!-- Submenú de Progresiones -->
+                    <ul>
+                        <li><a href="progressions/P5basico.html">5x5 básico</a></li>
+                        <li><a href="progressions/PSmolovJR.html">SmolovJR</a></li>
+                    </ul>
+                </li>
                 <li><a href="#" id="rankingMenu">Ranking TOP</a>
+                    <!-- Submenú de Ranking TOP -->
                     <ul>
                         <li><a href="ranking/TCulturistas.html">Culturistas</a></li>
                         <li><a href="ranking/TPowerlifters.html">Powerlifters</a></li>
-                    </ul></li>
+                    </ul>
+                </li>
                 <li><a href="calorias.html" id="caloriasMenu">Calorias</a></li>
                 <li><a href="contacto.html" id="contactoMenu">Contacto</a></li>
+                <!-- Elemento del menú para registrarse -->
                 <li id="registerMenu"><a href="register.html"><img src="/user.png" alt=""></a></li>
             </ul>
         </nav>
     </header>
 
     <main>
+        <!-- Contenido principal -->
         <div class="main">
             <div id="loader"><img src="/cargando.gif" alt=""></div>
 
         <section>
+            <!-- Texto de bienvenida -->
             <p>¡Bienvenido a <span class="highlight">PR</span>FIT! Tu destino para alcanzar nuevas alturas en el mundo del fitness.</p>
             <p>En PRFIT encontrarás entrenamientos progresivos, consejos de nutrición y toda la información relacionada con el gimnasio que necesitas para evolucionar hacia tu mejor versión.</p>
             <p>Únete a nuestra comunidad y haz que cada día te acerque más a tus objetivos de transformación física.</p>
-            <p><button onclick="startTour()" class="botonprogresion">EXPLORAR</button></p>
-            
+            <!-- Botón para iniciar el tour -->
+            <p><button onclick="startTour()" class="botonprogresion">¿Por dónde empezar?</button></p>
         </section>
+        <!-- Sección de imagen -->
         <section><img src="/inicio.jpg" alt=""></section>
     </div>
 
     </main>
 
     <footer class="footer">
+          <!-- Pie de página -->
           <p>&copy; 2024 PRFIT. Todos los derechos reservados.</p>
       </footer>
       
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Ocultar el loader después de un tiempo
             setTimeout(function() {
                 var loader = document.getElementById('loader');
                 loader.style.display = 'none';
@@ -84,6 +104,7 @@
                 }
         });
 
+        // Función para iniciar el tour
         function startTour() {
             introJs().setOptions({
                 steps: [
@@ -124,9 +145,8 @@
             }).start();
         }
     </script>
-    
-</body>
-</html><!--
+
+<!--
 
 ██████╗  ██████╗  ███████╗ ██╗ █████████╗ 
 ██╔══██╗ ██╔══██╗ ██╔════╝ ██║ ╚══██╔══╝ 
@@ -136,3 +156,6 @@
 ╚═╝      ╚═╝  ╚═╝ ╚═╝      ╚═╝    ╚═╝   
 
 -->
+    
+</body>
+</html>

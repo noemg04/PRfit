@@ -1,61 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Metadatos -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Noé Medina">
-    <meta name="description" content="Ginasio basicamente">
+    <meta name="description" content="PRFIT">
+    <!-- Estilos -->
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/estilos.css">
+    <!-- Favicon -->
     <link rel="icon" type="png" href="/favicoon.png">
+    <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
     <title>PRFIT</title>
 </head>
 <body>
     <header>
+        <!-- Menú de navegación -->
         <nav class="menu">
+            <!-- Logo -->
             <img src="/PRfitR.png" class="logo" alt="">
+            <!-- Lista de elementos del menú -->
             <ul>
                 <li><a href="index.html" class="brillo">INICIO</a></li>
                 <li><a href="Progresiones.html">Progresiones</a>
-                <ul>
-                    <li><a href="progressions/P5basico.html">5x5 básico</a></li>
-                    <li><a href="progressions/PSmolovJR.html">SmolovJR</a></li>
-                </ul></li>
+                    <!-- Submenú de Progresiones -->
+                    <ul>
+                        <li><a href="progressions/P5basico.html">5x5 básico</a></li>
+                        <li><a href="progressions/PSmolovJR.html">SmolovJR</a></li>
+                    </ul>
+                </li>
                 <li><a href="#">Ranking TOP</a>
+                    <!-- Submenú de Ranking TOP -->
                     <ul>
                         <li><a href="ranking/TCulturistas.html">Culturistas</a></li>
                         <li><a href="ranking/TPowerlifters.html">Powerlifters</a></li>
-                    </ul></li>
+                    </ul>
+                </li>
                 <li><a href="calorias.html">Calorias</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
+                <!-- Elemento del menú para registrarse -->
                 <li id="registerMenu"><a href="register.html"><img src="/user.png" alt=""></a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-
+        <!-- Contenido principal -->
         <div class="main">
+            <!-- Sección para mostrar el perfil del usuario -->
             <section class="progresionesHTML perfil">
-                <p>¡Bienvenido! Este es tu perfil, donde podrás encontrar todos tus valores guardados. Si aún no tienes ninguno, ¡adelante, empieza ahora!</p>
+                <p id="bienvenido">¡Bienvenido! </p>
+                <p> Este es tu perfil, donde podrás encontrar todos tus valores guardados. Si aún no tienes ninguno, ¡adelante, empieza ahora!</p>
                 <div class="rutina dieta">
                     <br>
+                    <!-- Contenedor para mostrar los resultados de la dieta -->
                     <div id="resultados" class="resultados"></div>
                 </div>
     
                 <div class="rutina">
                     <br>
+                    <!-- Contenedor para mostrar los resultados de la planificación SBD -->
                     <div id="resultadoSBD" class="resultados"></div>
                 </div>
     
                 <div class="rutina">
                     <br>
+                    <!-- Contenedor para mostrar los resultados de la planificación SmolovJR -->
                     <div id="resultadosSmolovJR" class="resultados"></div>
                 </div>
     
                 <br>
+                <!-- Botón para cerrar sesión -->
                 <button id="logoutButton" class="botonCerrarSesion">Cerrar sesión</button>
             </section>
         </div>
@@ -63,16 +80,18 @@
     </main>
 
     <footer class="footer">
+        <!-- Pie de página -->
         <p>&copy; 2024 PRFIT. Todos los derechos reservados.</p>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-        // Obtener el estado de la sesión del almacenamiento local
-        var isLoggedIn = localStorage.getItem('isLoggedIn');
+            // Obtener el estado de la sesión del almacenamiento local
+            var isLoggedIn = localStorage.getItem('isLoggedIn');
             console.log('isLoggedIn:', isLoggedIn);
 
             if (isLoggedIn) {
+                // Actualizar el enlace y la imagen del menú de registro si el usuario está logueado
                 var lastMenuItem = $('#registerMenu');
                 var lastMenuItemLink = lastMenuItem.find('a');
                 var lastMenuItemImg = lastMenuItem.find('img');
@@ -84,49 +103,53 @@
                 if (lastMenuItemImg.length > 0) {
                     lastMenuItemImg.attr('src', '/userlogged.png');
                 }
-                $.get('/mostrar_calorias', function(data, status) {
-        // Verificar si la solicitud fue exitosa
+
+                // Obtener el nombre de usuario y mostrarlo en el saludo de bienvenida
+                $.get('/mostrar_usuario', function(data, status) {
                     if (status === 'success') {
-                        // Mostrar los datos de calorías en el contenedor correspondiente
+                        $('#bienvenido').text('¡Bienvenido, ' + data.username + '!');
+                    } else {
+                        console.error('Error al obtener el nombre de usuario');
+                    }
+                });
+
+                // Obtener y mostrar los datos de calorías
+                $.get('/mostrar_calorias', function(data, status) {
+                    if (status === 'success') {
                         mostrarDatosCalorias(data);
                     } else {
-                        // Manejar el caso de error si la solicitud no fue exitosa
                         console.error('Error al obtener los datos de calorías');
                     }
                 });
 
+                // Obtener y mostrar los datos de la planificación SBD
                 $.get('/mostrar_sbd', function(data, status) {
                     if (status === 'success') {
                         mostrarSBD(data);
                     } else {
-                        // Manejar el caso de error si la solicitud no fue exitosa
                         console.error('Error al obtener los datos de SBD');
                     }
                 });
 
+                // Obtener y mostrar los datos de la planificación SmolovJR
                 $.get('/mostrar_smolovjr', function(data, status) {
                     if (status === 'success') {
                         mostrarSmolovJR(data);
                     } else {
-                        // Manejar el caso de error si la solicitud no fue exitosa
-                        console.error('Error al obtener los datos de SBD');
+                        console.error('Error al obtener los datos de SmolovJR');
                     }
                 });
                 
-            }else{
-
             }
         });
 
+        // Manejador de eventos para el botón de deslogueo
         $(document).ready(function() {
-                // Manejador de eventos para el botón de deslogueo
             $('#logoutButton').on('click', function() {
                 localStorage.removeItem('isLoggedIn');
                 // Redirige al usuario a la página de logout
                 window.location.href = '/logout';
             });
-
-
         });
 
         function mostrarDatosCalorias(data) {
@@ -173,51 +196,44 @@
         }
 
         function mostrarSmolovJR(data) {
-    // Obtener el contenedor donde se mostrarán los datos de la planificación de entrenamiento Smolov Jr
-    var resultadosSmolovJR = $('#resultadosSmolovJR');
+            // Obtener el contenedor donde se mostrarán los datos de la planificación de entrenamiento Smolov Jr
+            var resultadosSmolovJR = $('#resultadosSmolovJR');
 
-    // Construir el HTML para mostrar los datos
-    var html = "";
-    html += "<h2>Planificación de Entrenamiento Smolov Jr</h2>";
+            // Construir el HTML para mostrar los datos
+            var html = "";
+            html += "<h2>Planificación de Entrenamiento Smolov Jr</h2>";
 
-    var semanaAnterior = null;
+            var semanaAnterior = null;
 
-    data.forEach(function(item) {
-        if (item.semana !== semanaAnterior) {
+            data.forEach(function(item) {
+                if (item.semana !== semanaAnterior) {
+                    if (semanaAnterior !== null) {
+                        html += "</table>";
+                    }
+                    html += "<h2>SEMANA " + item.semana + "</h2>";
+                    html += "<table border='1'>";
+                    html += "<tr><th>DÍA</th><th>SERIES</th><th>REPETICIONES</th><th>PESO</th></tr>";
+                }
+
+                html += "<tr>";
+                html += "<td>" + item.dia + "</td>";
+                html += "<td>" + item.series + "</td>";
+                html += "<td>" + item.repeticiones + "</td>";
+                html += "<td>" + item.peso + " kg</td>";
+                html += "</tr>";
+
+                semanaAnterior = item.semana;
+            });
+
+            // Cerrar la última tabla
             if (semanaAnterior !== null) {
                 html += "</table>";
             }
-            html += "<h2>SEMANA " + item.semana + "</h2>";
-            html += "<table border='1'>";
-            html += "<tr><th>DÍA</th><th>SERIES</th><th>REPETICIONES</th><th>PESO</th></tr>";
+
+            // Actualizar el contenido del contenedor con el HTML generado
+            resultadosSmolovJR.html(html);
         }
-
-        html += "<tr>";
-        html += "<td>" + item.dia + "</td>";
-        html += "<td>" + item.series + "</td>";
-        html += "<td>" + item.repeticiones + "</td>";
-        html += "<td>" + item.peso + " kg</td>";
-        html += "</tr>";
-
-        semanaAnterior = item.semana;
-    });
-
-    // Cerrar la última tabla
-    if (semanaAnterior !== null) {
-        html += "</table>";
-    }
-
-    // Actualizar el contenido del contenedor con el HTML generado
-    resultadosSmolovJR.html(html);
-}
-
-
-
-
-
-
     </script>
-    
 </body>
 </html><!--
 

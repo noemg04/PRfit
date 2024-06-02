@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Noé Medina">
-    <meta name="description" content="Ginasio basicamente">
+    <meta name="description" content="PRFIT">
     <link rel="stylesheet" href="../../css/reset.css">
     <link rel="stylesheet" type="text/css" href="../../css/estilos.css">
-    <link rel="icon" type="png" href="imagenes/fasvicon.png">
+    <link rel="icon" type="png" href="/favicoon.png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>GYM</title>
+    <title>PRFIT</title>
 </head>
 <body>
     <header>
@@ -36,23 +36,21 @@
     </header>
 
     <main>
-      <div class="formulario">
-        <h2>CALCULAR RUTINA SMOLOV JR</h2>
-        <br>
-        <label for="maxRep">Repetición máxima (kg)</label>
-        <input type="number" id="maxRep" step="0.01"><br><br>
-        <label for="increment">Incremento (kg)</label>
-        <input type="number" id="increment" step="0.01"><br><br>
-    
-        <button onclick="calculateRoutine()" class="botonprogresion">Calcular Rutina</button><br><br>
-      </div>
+        <div class="formulario">
+            <h2>CALCULAR RUTINA SMOLOV JR</h2>
+            <br>
+            <label for="maxRep">Repetición máxima (kg)</label>
+            <input type="number" id="maxRep" step="0.01"><br><br>
+            <label for="increment">Incremento (kg)</label>
+            <input type="number" id="increment" step="0.01"><br><br>
+        
+            <button onclick="calculateRoutine()" class="botonprogresion">Calcular Rutina</button><br><br>
+        </div>
 
-      <div class="rutina">
-        <div id="resultados" class="resultados"></div>
-    </div>
-      <!-- Secciones restantes omitidas por brevedad -->
-    </div>
-  </main>
+        <div class="rutina">
+            <div id="resultados" class="resultados"></div>
+        </div>
+    </main>
 
   <footer class="footer">
     <p>&copy; 2024 PRFIT. Todos los derechos reservados.</p>
@@ -128,7 +126,7 @@
             rutinaHTML += "</table>";
         }
 
-        rutinaHTML += "<h2> <button onclick='guardarSmolovJR(planificacion)' class='botonGuardar'>Guardar</button> </h2>";
+        rutinaHTML += "<h2> <button onclick='guardarSmolovJR(planificacion)' class='botonGuardar'>Guardar</button></h2><br><br>";
         document.getElementById("resultados").innerHTML = rutinaHTML;
     }
 
@@ -156,4 +154,4 @@
       
     
 </body>
-</html><!---->
+</html>

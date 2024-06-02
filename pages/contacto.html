@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Metadatos -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Noé Medina">
+    <meta name="description" content="PRFIT">
+    
+    <!-- Estilos -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/estilos.css">
+    
+    <!-- Icono -->
+    <link rel="icon" type="png" href="/favicoon.png">
+    
+    <!-- Librería jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <title>PRFIT</title>
+</head>
+<body>
+    <header>
+        <!-- Menú de navegación -->
+        <nav class="menu">
+            <img src="/PRfitR.png" class="logo" alt="">
+            <ul>
+                <li><a href="index.html" class="brillo">INICIO</a></li>
+                <li><a href="Progresiones.html">Progresiones</a>
+                    <ul>
+                        <li><a href="progressions/P5basico.html">5x5 básico</a></li>
+                        <li><a href="progressions/PSmolovJR.html">SmolovJR</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Ranking TOP</a>
+                    <ul>
+                        <li><a href="ranking/TCulturistas.html">Culturistas</a></li>
+                        <li><a href="ranking/TPowerlifters.html">Powerlifters</a></li>
+                    </ul>
+                </li>
+                <li><a href="calorias.html">Calorias</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li id="registerMenu"><a href="register.html"><img src="/user.png" alt=""></a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="main">
+            <!-- Sección de progresiones -->
+            <section class="progresionesHTML">
+                <h2>Contacto</h2>
+                <p>Si tienes alguna sugerencia, reporte de fallo, o cualquier consulta, no dudes en contactarnos. Estamos aquí para ayudarte.</p>
+                <p>Puedes enviarnos un correo electrónico a:</p>
+                <p><a href="mailto:prfit@gmail.es" class="contactoMail">prfit@gmail.es</a></p>
+                <p>¡Esperamos tener noticias tuyas pronto!</p>
+            </section>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <!-- Pie de página -->
+        <p>&copy; 2024 PRFIT. Todos los derechos reservados.</p>
+    </footer>
+    
+    <!-- Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Retraso para ocultar el loader
+            setTimeout(function() {
+                var loader = document.getElementById('loader');
+                loader.style.display = 'none';
+            }, 1000);
+            
+            // Comprobar si el usuario está logueado
+            var isLoggedIn = localStorage.getItem('isLoggedIn');
+            console.log('isLoggedIn:', isLoggedIn);
+            if (isLoggedIn) {
+                var lastMenuItem = $('#registerMenu');
+                var lastMenuItemLink = lastMenuItem.find('a');
+                var lastMenuItemImg = lastMenuItem.find('img');
+                if (lastMenuItemLink.length > 0) {
+                    lastMenuItemLink.attr('href', '/perfil.html');
+                }
+                if (lastMenuItemImg.length > 0) {
+                    lastMenuItemImg.attr('src', '/userlogged.png');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

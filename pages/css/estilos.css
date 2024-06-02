@@ -2,27 +2,25 @@
 body{
     background-color: #171717;/*Negro grafito*/
     font-family: "Open Sans", sans-serif;
-    
 }
 
 #loader{
   position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #171717; /* Cambia esto al color de fondo deseado */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #171717;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
 }
 
 /*HEADER*/
 
 .logo{
     width: 5%;
-    
 }
 
 nav.menu {
@@ -44,80 +42,85 @@ nav.menu li {
     display: inline;
     margin-right: 20px;
 }
-   .menu ul a {
-    color:black;
-    text-decoration:none;
-    font-weight:400;
-    font-size:16px;
-    padding:10px;
-    text-transform:uppercase;
-    letter-spacing:1px;
-
-   }
+.menu ul a {
+  color:black;
+  text-decoration:none;
+  font-weight:400;
+  font-size:16px;
+  padding:10px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
    
-   /* items del menu */
+/* items del menu */
    
-   .menu ul li {
-    position:relative;
-    margin:0;
-    padding:2px;
-   }
+.menu ul li {
+  position:relative;
+  margin:0;
+  padding:2px;
+}
    
-   /* efecto al pasar el ratón por los items del menu */
+/* efecto al pasar el ratón por los items del menu */
    
-   .menu ul li:hover {
-    background:#cc0000 ;
-    border-radius: 10px;
-    /*border: 1px solid black;*/
-   }
-
+.menu ul li:hover {
+  background:#cc0000 ;
+  border-radius: 10px;
+}
 
 .menu ul ul {
-    width: 100%;
-    display:none;
-    position:absolute;
-    top:100%;
-    left:0;
-    background:#212121;
-    border: 2px solid black;
-    border-radius: 10px;
-   }
+  width: 100%;
+  display:none;
+  position:absolute;
+  top:100%;
+  left:0;
+  background:#212121;
+  border: 2px solid black;
+  border-radius: 10px;
+}
    
-   /* items del menu desplegable */
+/* items del menu desplegable */
    
-   .menu ul ul li {
-    float:none;
-    padding-top:1%;
-    padding-bottom:1%;
-   }
+.menu ul ul li {
+  float:none;
+  padding-top:1%;
+  padding-bottom:1%;
+}
    
-   /* enlaces de los items del menu desplegable */
-   
-   .menu ul ul a {
-    color: #DCCABC;
-    font-size:11px;
-    line-height:120%;
-   }
-   
-   /* items del menu desplegable al pasar el ratón */
-   
-   .menu ul li:hover > ul {
-    display:flex;
-    flex-direction: column;
-   }
+/* enlaces de los items del menu desplegable */
 
-   .menu img{
-    vertical-align: middle;
-   }
+.menu ul ul a {
+  color: #DCCABC;
+  font-size:11px;
+  line-height:120%;
+}
 
-   .menu img:hover{
-    background-color: rgba(255, 99, 71, 0.2);
-   }
+/* items del menu desplegable al pasar el ratón */
+
+.menu ul li:hover > ul {
+  display:flex;
+  flex-direction: column;
+}
+
+.menu img{
+  vertical-align: middle;
+}
+
+.menu #registerMenu:hover img {
+  background-color: transparent;
+  border-radius: 0;
+}
+
+.menu #registerMenu:hover {
+  background-color: transparent;
+  border-radius: 0;
+}
+
+.menu #registerMenu img:hover {
+background-color: rgba(204, 0, 0, 0.3);
+border-radius: 10px;
+}
 
 /*HEADER*/
-
-
-
 main.pagInfo{
     width: 80%;
     margin: 0 auto;
@@ -131,7 +134,13 @@ main.pagInfo p{
 .formulario{
   color: #DCCABC;
   text-align: center;
-  margin: 1%;
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 1%;
+  background-color: #212121;
+  padding: 1%;
+  border-radius: 10px;
+  letter-spacing:1px;
 }
 
 .formularioCals{
@@ -149,10 +158,6 @@ main.pagInfo p{
   padding: 1%;
   border-radius: 10px;
   color: white;
-}
-
-.formularioCals label{
-  
 }
 
 .formulario button{
@@ -174,13 +179,13 @@ main.pagInfo p{
 }
 
 .main{
-    width: 90%;
-    margin: auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    letter-spacing:1px;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  letter-spacing:1px;
 }
 
 .main2{
@@ -190,6 +195,7 @@ main.pagInfo p{
   flex-direction: row;
   align-items: center;
   letter-spacing:1px;
+  margin-top: 1%;
 }
 
 .main2 section{
@@ -202,217 +208,220 @@ main.pagInfo p{
   font-size: 13px;
 }
 
-#top{
-  padding: 5%;
+.main2 a{
+  color: white;
+  text-decoration: none;
 }
 
+#top{
+  padding: 3%;
+}
 
 section{
-    
     padding: 2%;
     margin: 1%;
     text-align: center;
     background-color: #212121;
     border-radius: 10px;
     color: #DCCABC;
-    
 }
+
 section p{
     margin-top: 3%;
 }
 
 
 /*Boton*/
-            button {
-                position: relative;
-                border: none;
-                background: transparent;
-                padding: 0;
-                cursor: pointer;
-                outline-offset: 4px;
-                transition: filter 250ms;
-                user-select: none;
-                touch-action: manipulation;
-            }
-            
-            .shadow {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                border-radius: 12px;
-                background: #00000040;
-                will-change: transform;
-                transform: translateY(2px);
-                transition: transform
-                600ms
-                cubic-bezier(.3, .7, .4, 1);
-            }
-            
-            .edge {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                border-radius: 12px;
-                background: linear-gradient(
-                to left,
-                #52001b 0%,
-                #931010 8%,
-                #931010 92%,
-                #52001b 100%
-                );
-            }
-            
-            .front {
-                display: block;
-                position: relative;
-                padding: 12px 27px;
-                border-radius: 12px;
-                font-size: 1.1rem;
-                color: white;
-                background: #cc0000;
-                will-change: transform;
-                transform: translateY(-4px);
-                transition: transform
-                600ms
-                cubic-bezier(.3, .7, .4, 1);
-            }
-            
-            button:hover {
-                filter: brightness(110%);
-            }
-            
-            button:hover .front {
-                transform: translateY(-6px);
-                transition: transform
-                250ms
-                cubic-bezier(.3, .7, .4, 1.5);
-            }
-            
-            button:active .front {
-                transform: translateY(-2px);
-                transition: transform 34ms;
-            }
-            
-            button:hover .shadow {
-                transform: translateY(4px);
-                transition: transform
-                250ms
-                cubic-bezier(.3, .7, .4, 1.5);
-            }
-            
-            button:active .shadow {
-                transform: translateY(1px);
-                transition: transform 34ms;
-            }
-            
-            button:focus:not(:focus-visible) {
-                outline: none;
-            }
+button {
+  position: relative;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  outline-offset: 4px;
+  transition: filter 250ms;
+  user-select: none;
+  touch-action: manipulation;
+}
 
-            button a{
-                text-decoration: none;
-            }
+.shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: #00000040;
+  will-change: transform;
+  transform: translateY(2px);
+  transition: transform
+  600ms
+  cubic-bezier(.3, .7, .4, 1);
+}
+
+.edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: linear-gradient(
+  to left,
+  #52001b 0%,
+  #931010 8%,
+  #931010 92%,
+  #52001b 100%
+  );
+}
+
+.front {
+  display: block;
+  position: relative;
+  padding: 12px 27px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  color: white;
+  background: #cc0000;
+  will-change: transform;
+  transform: translateY(-4px);
+  transition: transform
+  600ms
+  cubic-bezier(.3, .7, .4, 1);
+}
+
+button:hover {
+  filter: brightness(110%);
+}
+
+button:hover .front {
+  transform: translateY(-6px);
+  transition: transform
+  250ms
+  cubic-bezier(.3, .7, .4, 1.5);
+}
+
+button:active .front {
+  transform: translateY(-2px);
+  transition: transform 34ms;
+}
+
+button:hover .shadow {
+  transform: translateY(4px);
+  transition: transform
+  250ms
+  cubic-bezier(.3, .7, .4, 1.5);
+}
+
+button:active .shadow {
+  transform: translateY(1px);
+  transition: transform 34ms;
+}
+
+button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+button a{
+  text-decoration: none;
+}
 /*Boton para ir a las progresiones*/
-            .botonprogresion {
-                position: relative;
-                padding: 10px 22px;
-                border-radius: 6px;
-                border: none;
-                color: #fff;
-                cursor: pointer;
-                background-color: #cc0000;
-                transition: all 0.2s ease;
-                border: 1px solid black;
-              }
-              
-              .botonprogresion:active {
-                transform: scale(0.96);
-              }
-              
-              .botonprogresion:before,
-              .botonprogresion:after {
-                position: absolute;
-                content: "";
-                width: 150%;
-                left: 50%;
-                height: 100%;
-                transform: translateX(-50%);
-                z-index: -1000;
-                background-repeat: no-repeat;
-              }
-              
-              .botonprogresion:hover:before {
-                top: -70%;
-                background-image: radial-gradient(circle, #cc0000 20%, transparent 20%),
-                  radial-gradient(circle, transparent 20%, #cc0000 20%, transparent 30%),
-                  radial-gradient(circle, #cc0000 20%, transparent 20%),
-                  radial-gradient(circle, #cc0000 20%, transparent 20%),
-                  radial-gradient(circle, transparent 10%, #cc0000 15%, transparent 20%),
-                  radial-gradient(circle, #cc0000 20%, transparent 20%),
-                  radial-gradient(circle, #cc0000 20%, transparent 20%),
-                  radial-gradient(circle, #cc0000 20%, transparent 20%),
-                  radial-gradient(circle, #cc0000 20%, transparent 20%);
-                background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%,
-                  10% 10%, 18% 18%;
-                background-position: 50% 120%;
-                animation: greentopBubbles 0.6s ease;
-              }
-              
-              @keyframes greentopBubbles {
-                0% {
-                  background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%,
-                    40% 90%, 55% 90%, 70% 90%;
-                }
-              
-                50% {
-                  background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%,
-                    50% 50%, 65% 20%, 90% 30%;
-                }
-              
-                100% {
-                  background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%,
-                    50% 40%, 65% 10%, 90% 20%;
-                  background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
-                }
-              }
-              
-              .botonprogresion:hover::after {
-                bottom: -70%;
-                background-image: radial-gradient(circle, #cc0000 20%, transparent 20%),
-                  radial-gradient(circle, #cc0000 20%, transparent 20%),
-                  radial-gradient(circle, transparent 10%, #cc0000 15%, transparent 20%),
-                  radial-gradient(circle, #cc0000 20%, transparent 20%),
-                  radial-gradient(circle, #cc0000 20%, transparent 20%),
-                  radial-gradient(circle, #cc0000 20%, transparent 20%),
-                  radial-gradient(circle, #cc0000 20%, transparent 20%);
-                background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 20% 20%, 18% 18%;
-                background-position: 50% 0%;
-                animation: greenbottomBubbles 0.6s ease;
-              }
-              
-              @keyframes greenbottomBubbles {
-                0% {
-                  background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%,
-                    70% -10%, 70% 0%;
-                }
-              
-                50% {
-                  background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%,
-                    105% 0%;
-                }
-              
-                100% {
-                  background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%,
-                    110% 10%;
-                  background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
-                }
-              }
+.botonprogresion {
+  position: relative;
+  padding: 10px 22px;
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  background-color: #cc0000;
+  transition: all 0.2s ease;
+  border: 1px solid black;
+}
 
-              /* Estilos para la tabla */
+.botonprogresion:active {
+  transform: scale(0.96);
+}
+
+.botonprogresion:before,
+.botonprogresion:after {
+  position: absolute;
+  content: "";
+  width: 150%;
+  left: 50%;
+  height: 100%;
+  transform: translateX(-50%);
+  z-index: -1000;
+  background-repeat: no-repeat;
+}
+
+.botonprogresion:hover:before {
+  top: -70%;
+  background-image: radial-gradient(circle, #cc0000 20%, transparent 20%),
+    radial-gradient(circle, transparent 20%, #cc0000 20%, transparent 30%),
+    radial-gradient(circle, #cc0000 20%, transparent 20%),
+    radial-gradient(circle, #cc0000 20%, transparent 20%),
+    radial-gradient(circle, transparent 10%, #cc0000 15%, transparent 20%),
+    radial-gradient(circle, #cc0000 20%, transparent 20%),
+    radial-gradient(circle, #cc0000 20%, transparent 20%),
+    radial-gradient(circle, #cc0000 20%, transparent 20%),
+    radial-gradient(circle, #cc0000 20%, transparent 20%);
+  background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%,
+    10% 10%, 18% 18%;
+  background-position: 50% 120%;
+  animation: greentopBubbles 0.6s ease;
+}
+
+@keyframes greentopBubbles {
+  0% {
+    background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%,
+      40% 90%, 55% 90%, 70% 90%;
+  }
+
+  50% {
+    background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%,
+      50% 50%, 65% 20%, 90% 30%;
+  }
+
+  100% {
+    background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%,
+      50% 40%, 65% 10%, 90% 20%;
+    background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+  }
+}
+
+.botonprogresion:hover::after {
+  bottom: -70%;
+  background-image: radial-gradient(circle, #cc0000 20%, transparent 20%),
+    radial-gradient(circle, #cc0000 20%, transparent 20%),
+    radial-gradient(circle, transparent 10%, #cc0000 15%, transparent 20%),
+    radial-gradient(circle, #cc0000 20%, transparent 20%),
+    radial-gradient(circle, #cc0000 20%, transparent 20%),
+    radial-gradient(circle, #cc0000 20%, transparent 20%),
+    radial-gradient(circle, #cc0000 20%, transparent 20%);
+  background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 20% 20%, 18% 18%;
+  background-position: 50% 0%;
+  animation: greenbottomBubbles 0.6s ease;
+}
+
+@keyframes greenbottomBubbles {
+  0% {
+    background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%,
+      70% -10%, 70% 0%;
+  }
+
+  50% {
+    background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%,
+      105% 0%;
+  }
+
+  100% {
+    background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%,
+      110% 10%;
+    background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+  }
+}
+
+/* Estilos para la tabla */
 .tabla table {
   border-collapse: collapse;
   width: 100%;
@@ -432,9 +441,6 @@ section p{
 .tabla td.centrado {
   text-align: center;
 }
-
-
-
 
 .form {
   background-color: #202020 ;
@@ -489,7 +495,6 @@ section p{
   width: 100%;
 }
 
-
 /* calorias */
 .bgInput{
   background-color: #212121;
@@ -532,10 +537,12 @@ section p{
   transition: transform 200ms, color 200ms;
   top: 20px;
 }
+
 .input:not(:placeholder-shown) ~ .cut,
 .input:focus ~ .cut {
   transform: translateY(8px);
 }
+
 .input:not(:placeholder-shown) ~ .iLabel,
 .input:focus ~ .iLabel {
   transform: translateY(-30px) translateX(10px) scale(0.75);
@@ -567,15 +574,13 @@ section p{
   background-color: #0093FD;
 }
 
-
 .highlight {
-  color: #cc0000; /* Este es el color rojo que ya estás utilizando en otros lugares */
+  color: #cc0000;
 }
 
 #toggleForm{
   color: #cc0000;
 }
-
 
 .rutina{
   margin: 0 auto;
@@ -601,16 +606,11 @@ section p{
   border: 1px solid black;
   padding: 1%;
 }
+
 .resultados td{
   border: 1px solid black;
   padding: 1%;
 }
-
-#resultadoSBD h2{
-
-}
-
-
 
 h3{
   padding-bottom: 5%;
@@ -621,19 +621,21 @@ h3{
   width: 100%;
   margin-bottom: 20px;
 }
+
 .ranking th, .ranking td {
   border: 1px solid black;
   padding: 8px;
 }
+
 .ranking th {
   background-color: #495867;
   text-align: center;
   font-size: 1.2em;
 }
+
 .ranking td {
   text-align: center;
 }
-
 
 .cta {
   border: none;
@@ -707,8 +709,6 @@ h3{
   transform: scaleX(1);
   transform-origin: bottom left;
 }
-
-
 
 .calsContainer {
   width: 80%;
@@ -785,14 +785,12 @@ h3{
   
 }
 
-
 .gramos{
   display: flex;
   align-items:center;
   justify-content:center;
   text-align: center;
 }
-
 
 .progresionesHTML {
   text-align: center;
@@ -804,7 +802,7 @@ h3{
   padding: 2%;
   margin: 0 auto;
   margin-top: 1%;
-  text-align: center; /* Alineación del texto a la izquierda para mantener el contenido de la lista alineado correctamente */
+  text-align: center;
   border: 1px solid black;
   background-color: #495867;
   border-radius: 5px;
@@ -813,13 +811,9 @@ h3{
 .progresionesHTML ul li {
   margin-bottom: 20px;
   display: flex;
-  justify-content: space-around; /* Alinear elementos dentro de cada ítem de lista */
-  align-items: center; /* Centrar verticalmente los elementos dentro de cada ítem de lista */
+  justify-content: space-around;
+  align-items: center;
 }
-
-.progresionesHTML div{
-}
-
 
 .exercise-image {
   max-width: 200px;
@@ -828,21 +822,24 @@ h3{
 }
 
 .lSentadilla {/*l por letra*/
-  color: red; /* Rojo */
+  color: red;
+  text-shadow: 1px 1px 10px black;
 }
 
 .lBanca {
-  color: lightgreen; /* Verde */
+  color: lightgreen;
+  text-shadow: 1px 1px 10px black;
 }
 
 .lDeadlift{
-  color: lightblue; /* Azul */
+  color: lightblue;
+  text-shadow: 1px 1px 10px black;
 }
 
 /* Footer */
 .footer {
-  background-color: #171717; /* Negro grafito */
-  color: #DCCABC; /* Color del texto */
+  background-color: #171717;
+  color: #DCCABC;
   text-align: center;
   padding: 10px 0;
   position: fixed;
@@ -851,7 +848,6 @@ h3{
   margin: 5px 0;
   font-size: 14px;
 }
-
 
 .perfil{
   width: 80%;
@@ -867,7 +863,7 @@ h3{
 }
 
 .botonGuardar {
-  background-color: #007bff; /* Azul oscuro */
+  background-color: #007bff;
   padding: 1%;
   border-radius: 10px;
   color: white;
@@ -877,15 +873,15 @@ h3{
 }
 
 .botonGuardar:hover {
-  background-color: #0069d9; /* Azul más oscuro al pasar el ratón */
+  background-color: #0069d9;
 }
 
 .botonGuardar:active {
-  background-color: #0056b3; /* Azul aún más oscuro al hacer clic */
+  background-color: #0056b3;
 }
 
 .botonCerrarSesion {
-  background-color: #4B0082; /* Midnight Purple */
+  background-color: #4B0082;
   padding: 1%;
   border-radius: 10px;
   color: white;
@@ -895,9 +891,18 @@ h3{
 }
 
 .botonCerrarSesion:hover {
-  background-color: #3A0069; /* Más oscuro al pasar el ratón */
+  background-color: #3A0069;
 }
 
 .botonCerrarSesion:active {
-  background-color: #2B004D; /* Aún más oscuro al hacer clic */
+  background-color: #2B004D;
+}
+
+.contactoMail{
+  color: white;
+  text-decoration: none;
+}
+
+.contactoMail:visited{
+  color: aquamarine;
 }

@@ -1,4 +1,9 @@
-CREATE TABLE usuariosDB (
+CREATE DATABASE IF NOT EXISTS usuariosDB;
+
+-- Selecciona la base de datos
+USE usuariosDB;
+
+CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,

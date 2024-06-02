@@ -16,9 +16,10 @@ const dbUsuarios = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'usuariosDB' // Asegúrate de cambiar esto al nombre correcto de tu base de datos
+    database: 'usuariosDB'
 });
 
+// Conexión a la base de datos principal
 conexion.connect(err => {
     if (err) {
         console.error('Error de conexión: ' + err.message);
@@ -27,6 +28,7 @@ conexion.connect(err => {
     console.log('Conexión establecida con la base de datos.');
 });
 
+// Conexión a la base de datos de usuarios
 dbUsuarios.connect(err => {
     if (err) {
         console.error('Error al conectar a la base de datos de usuarios: ' + err.message);
@@ -42,13 +44,12 @@ app.use('/styles', express.static(__dirname + '/styles'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(session({
-    secret: 'secreto', // Cambia esto a una cadena aleatoria y única
+    secret: 'secreto',// Mi palabra secreta
     resave: false,
     saveUninitialized: false
 }))
 
 
-// Motor de plantillas - si no estás usando EJS, puedes comentar o remover esta línea
 app.set('view engine', 'ejs');
 
 // Rutas
@@ -60,7 +61,7 @@ app.get('/', (req, res) => {
 app.get('/obtener_top_culturistas', (req, res) => {
     const año = req.query.año;
     const sql = `
-        SELECT mrOranking.Categoria, mrOranking.Posicion, mrOranking.NombreCompetidor
+        SELECT mrOranking.Categoria, mrOranking.Posicion, mrOranking.NombreCompetidor, mrOranking.EnlaceWikipedia
         FROM mrOranking
         JOIN mrOcategorias ON mrOranking.Categoria = mrOcategorias.Nombre
         WHERE YEAR(mrOranking.Fecha) = ?
@@ -84,7 +85,10 @@ app.get('/obtener_top_culturistas', (req, res) => {
                 if (!categorias[fila.Categoria]) {
                     categorias[fila.Categoria] = [];
                 }
-                categorias[fila.Categoria].push(`${fila.Posicion}. ${fila.NombreCompetidor}`);
+                const competidor = fila.EnlaceWikipedia 
+                    ? `<a href="${fila.EnlaceWikipedia}" target="_blank">${fila.Posicion}. ${fila.NombreCompetidor}</a>`
+                    : `${fila.Posicion}. ${fila.NombreCompetidor}`;
+                categorias[fila.Categoria].push(competidor);
             });
 
             // Construir la respuesta HTML para cada categoría
@@ -98,7 +102,6 @@ app.get('/obtener_top_culturistas', (req, res) => {
                 respuesta += "</tr>";
                 respuesta += "</table>";
             });
-            
 
             res.send(respuesta);
         } else {
@@ -108,6 +111,7 @@ app.get('/obtener_top_culturistas', (req, res) => {
 });
 
 
+// Ruta para obtener el ranking de powerlifters
 app.get('/obtener_top_powerlifters', (req, res) => {
     const año = req.query.año;
     const sql = `
@@ -163,6 +167,7 @@ app.listen(3000, () => {
 
 const bcrypt = require('bcryptjs');
 
+// Ruta para registrar un nuevo usuario
 app.post('/register', (req, res) => {
     const { username, email, password } = req.body;
     const salt = bcrypt.genSaltSync(10);
@@ -179,6 +184,7 @@ app.post('/register', (req, res) => {
     });
 });
 
+// Ruta para iniciar sesión de un usuario
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
     const sql = 'SELECT id, password FROM usuarios WHERE username = ?';
@@ -200,7 +206,32 @@ app.post('/login', (req, res) => {
 
 });
 
+// Ruta para mostrar el nombre de usuario del usuario autenticado
+app.get('/mostrar_usuario', (req, res) => {
+    const userId = req.session.userId;
 
+    if (!userId) {
+        return res.status(401).json({ message: 'Usuario no autenticado' });
+    }
+
+    const sql = 'SELECT username FROM usuarios WHERE id = ?';
+
+    dbUsuarios.query(sql, [userId], (error, resultados) => {
+        if (error) {
+            console.error(error);
+            return res.status(500).json({ message: 'Error en el servidor al recuperar el nombre de usuario.' });
+        }
+
+        if (resultados.length === 0) {
+            return res.status(404).json({ message: 'Usuario no encontrado.' });
+        }
+
+        const { username } = resultados[0];
+        res.json({ username });
+    });
+});
+
+// Ruta para guardar los datos de calorías del usuario
 app.post('/guardar_calorias', (req, res) => {
     const { calories, protein, fat } = req.body;
     const userId = req.session.userId;
@@ -213,7 +244,7 @@ app.post('/guardar_calorias', (req, res) => {
     console.log(`Guardando datos para el usuario ${userId}: Calorías: ${calories}, Proteínas: ${protein}, Grasas: ${fat}`);
 
     // Consulta SQL para insertar o actualizar datos
-    const sql = 'INSERT INTO dieta (usuario_id, calorias, proteinas, grasas) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE calorias = VALUES(calorias), proteinas = VALUES(proteinas), grasas = VALUES(grasas)';
+    const sql = 'INSERT INTO dieta (usuario_id, calorias, proteinas, grasas) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE calorias = VALUES(calorias), proteinas = VALUES(proteinas), grasas = VALUES(grasas)';// ON DUPLICATE KEY UPDATE para sobreescribir
 
     // Ejecutar la consulta
     dbUsuarios.query(sql, [userId, calories, protein, fat], (error, resultados) => {
@@ -225,8 +256,9 @@ app.post('/guardar_calorias', (req, res) => {
     });
 });
 
+// Ruta para mostrar los datos de calorías del usuario autenticado
 app.get('/mostrar_calorias', (req, res) => {
-    const userId = req.session.userId; // Asumiendo que estás utilizando sesiones para manejar la autenticación
+    const userId = req.session.userId;
 
     if (!userId) {
         return res.status(401).json({ message: 'Usuario no autenticado' });
@@ -302,16 +334,15 @@ async function insertarSemana(userId, semanaData, insertQuery) {
     });
 }
 
-  
-  app.get('/mostrar_sbd', (req, res) => {
-    const userId = req.session.userId; // Asumiendo que estás utilizando sesiones para manejar la autenticación
+// Ruta para mostrar los datos de planificación de entrenamiento (SBD) del usuario autenticado
+app.get('/mostrar_sbd', (req, res) => {
+    const userId = req.session.userId;
 
     if (!userId) {
         return res.status(401).json({ message: 'Usuario no autenticado' });
     }
 
     const sql = 'SELECT semana, porcentaje, repeticion, peso_sentadilla, peso_banca, peso_muerto FROM planificacion_sbd WHERE usuario_id = ?';
-
 
     dbUsuarios.query(sql, [userId], (error, resultados) => {
         if (error) {
@@ -332,9 +363,9 @@ async function insertarSemana(userId, semanaData, insertQuery) {
     });
 });
 
-
+// Ruta para guardar la planificación de entrenamiento (Smolov JR) del usuario autenticado
 app.post('/guardarSmolovJR', (req, res) => {
-    const userId = req.session.userId; // Asumiendo que estás utilizando sesiones para manejar la autenticación
+    const userId = req.session.userId;
     const planificacion = req.body;
 
     if (!userId) {
@@ -378,8 +409,9 @@ async function insertarDia(userId, diaData, insertQuery) {
     });
 }
 
+// Ruta para mostrar los datos de la planificación de entrenamiento (Smolov JR) del usuario autenticado
 app.get('/mostrar_smolovjr', (req, res) => {
-    const userId = req.session.userId; // Asumiendo que estás utilizando sesiones para manejar la autenticación
+    const userId = req.session.userId;
 
     if (!userId) {
         return res.status(401).json({ message: 'Usuario no autenticado' });
@@ -406,8 +438,7 @@ app.get('/mostrar_smolovjr', (req, res) => {
     });
 });
 
-
-
+// Ruta para cerrar la sesión
 app.get('/logout', (req, res) => {
     req.session.destroy();
     res.redirect('/register.html'); // Redirige al usuario a la página de inicio o a donde desees
